@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5ev4sbjfn71b"]
+[gd_scene load_steps=5 format=3 uid="uid://w7ur0umrwi53"]
 
 [ext_resource type="PackedScene" uid="uid://3n4ygfapfmnh" path="res://nodes/character.tscn" id="1_u4p0y"]
 [ext_resource type="ArrayMesh" uid="uid://mecled1csa01" path="res://models/HubertRoboto.obj" id="2_b2ilo"]
@@ -8,22 +8,17 @@
 [node name="character" instance=ExtResource("1_u4p0y")]
 
 [node name="Shape" parent="LilGuy" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.76597, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 
 [node name="Mesh" parent="LilGuy" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 material_override = ExtResource("2_q4e0u")
 mesh = ExtResource("2_b2ilo")
 
-[node name="ConeTwistJoint3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-
-[node name="Load" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
 [node name="Shape" parent="Load" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.8, 0)
 
-[node name="Load" parent="Load/Shape" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+[node name="Load" parent="Load" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 material_override = ExtResource("2_q4e0u")
 mesh = ExtResource("3_ankll")

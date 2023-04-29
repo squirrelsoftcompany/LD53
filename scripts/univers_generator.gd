@@ -1,7 +1,7 @@
 extends Node3D
 class_name Univers
 
-var planeteNode = preload("res://nodes/planete.tscn")
+var planeteNode = preload("res://nodes/planet.tscn")
 var sunNode = preload("res://nodes/sun.tscn")
 
 #TODO : Expose variables
@@ -12,7 +12,6 @@ var mediumPlanetesNumber : int = 5
 var bigPlanetesNumber : int = 2
 var interplanetaryMinDistance: int = 5
 var rng = RandomNumberGenerator.new()
-#TODO: array of "Planet" objects, for now use Vector3 to save positions
 var planeteArray: Array[Node3D]
 
 func _init() -> void:

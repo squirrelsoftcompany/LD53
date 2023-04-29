@@ -31,6 +31,12 @@ pause={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="Planets"
+3d_physics/layer_2="Character"
+3d_physics/layer_3="CameraArm"
+
 [physics]
 
 3d/default_gravity=0.0
@@ -41,4 +47,6 @@ renderer/rendering_method="mobile"
 
 [specific]
 
-gravity/scale_by_radius=0.33
+gravity/area_radius_scale=4.0
+gravity/base_gravity=9.8
+gravity/base_radius_4_base_gravity=3.0
