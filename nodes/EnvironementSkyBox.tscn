@@ -1,14 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdt32i7y653jp"]
+[gd_scene load_steps=2 format=3 uid="uid://bdt32i7y653jp"]
 
-[ext_resource type="Sky" uid="uid://bp0xb050n14cu" path="res://materials/SkyBox.tres" id="1_dfpel"]
-
-[sub_resource type="Environment" id="Environment_3bin1"]
-background_mode = 2
-background_energy_multiplier = 2.19
-sky = ExtResource("1_dfpel")
-sky_custom_fov = 34.3
-ambient_light_color = Color(1, 1, 1, 1)
-glow_intensity = 8.0
+[ext_resource type="Environment" uid="uid://j2ib0gh2ca5d" path="res://EnvironementSkyBox.tres" id="1_kbc5k"]
 
 [node name="WorldEnvironment" type="WorldEnvironment"]
-environment = SubResource("Environment_3bin1")
+environment = ExtResource("1_kbc5k")

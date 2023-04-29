@@ -1,0 +1,11 @@
+[gd_resource type="Environment" load_steps=2 format=3 uid="uid://j2ib0gh2ca5d"]
+
+[ext_resource type="Sky" uid="uid://bp0xb050n14cu" path="res://materials/SkyBox.tres" id="1_r8vtm"]
+
+[resource]
+background_mode = 2
+background_energy_multiplier = 2.19
+sky = ExtResource("1_r8vtm")
+sky_custom_fov = 34.3
+ambient_light_color = Color(1, 1, 1, 1)
+glow_intensity = 8.0

@@ -47,6 +47,7 @@ renderer/rendering_method="mobile"
 
 [specific]
 
+gravity/scale_by_radius=0.33
 gravity/area_radius_scale=4.0
 gravity/base_gravity=9.8
 gravity/base_radius_4_base_gravity=3.0

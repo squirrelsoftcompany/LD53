@@ -1,4 +1,4 @@
-extends Node3D
+extends WorldEnvironment
 class_name Univers
 
 var planetNode = preload("res://nodes/planet.tscn")

@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://ox1vxfdy4xrc"]
+[gd_scene load_steps=9 format=3 uid="uid://ox1vxfdy4xrc"]
 
+[ext_resource type="Environment" uid="uid://j2ib0gh2ca5d" path="res://EnvironementSkyBox.tres" id="1_2g42a"]
 [ext_resource type="Script" path="res://scripts/univers_generator.gd" id="1_53e8m"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="2_ls0t3"]
 [ext_resource type="Texture2D" uid="uid://diakv2qdi74h" path="res://sprites/PH_SkyBox.png" id="4_phtxd"]
@@ -27,7 +28,8 @@ sky = SubResource("Sky_x1vkw")
 ambient_light_source = 2
 ambient_light_color = Color(0.47451, 0.47451, 0.47451, 1)
 
-[node name="Univers" type="Node3D"]
+[node name="Univers" type="WorldEnvironment"]
+environment = ExtResource("1_2g42a")
 script = ExtResource("1_53e8m")
 
 [node name="Camera3D" type="Camera3D" parent="."]
