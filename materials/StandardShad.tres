@@ -29,7 +29,6 @@ void fragment() {
 
 // Input:3
 	vec2 n_out3p0 = UV;
-	float n_out3p1 = n_out3p0.r;
 	float n_out3p2 = n_out3p0.g;
 
 
