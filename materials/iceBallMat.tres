@@ -1,0 +1,27 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bmpt5rvbyhxoi"]
+
+[ext_resource type="Shader" uid="uid://dm1hiccu16s5h" path="res://materials/planetBallShader.tres" id="1_tip1y"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p6api"]
+noise_type = 2
+frequency = 0.076
+fractal_octaves = 3
+fractal_lacunarity = 2.304
+fractal_gain = 0.811
+fractal_weighted_strength = 0.45
+fractal_ping_pong_strength = 0.546
+cellular_distance_function = 3
+cellular_jitter = 1.723
+cellular_return_type = 6
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d6u3k"]
+seamless = true
+seamless_blend_skirt = 0.22
+noise = SubResource("FastNoiseLite_p6api")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_tip1y")
+shader_parameter/main_color = Color(0.305882, 0.666667, 0.686275, 1)
+shader_parameter/dirt_color = Color(0.792157, 0.780392, 0.8, 1)
+shader_parameter/tex_frg_2 = SubResource("NoiseTexture2D_d6u3k")
