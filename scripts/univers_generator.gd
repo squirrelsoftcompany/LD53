@@ -1,7 +1,7 @@
 extends Node3D
 class_name Univers
 
-var planeteNode = preload("res://nodes/planete.tscn")
+var planeteNode = preload("res://nodes/planet.tscn")
 var sunNode = preload("res://nodes/sun.tscn")
 
 #TODO : Expose variables
