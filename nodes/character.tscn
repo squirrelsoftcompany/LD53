@@ -1,16 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://3n4ygfapfmnh"]
+[gd_scene load_steps=6 format=3 uid="uid://3n4ygfapfmnh"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y8ulr"]
+friction = 0.0
+bounce = 0.25
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ctvon"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_d3lnt"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_uhl1h"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_tpo1n"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_dkt54"]
 
 [node name="character" type="Node3D"]
 
 [node name="LilGuy" type="RigidBody3D" parent="."]
+collision_layer = 2
+collision_mask = 241
+mass = 80.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.5, 0)
+physics_material_override = SubResource("PhysicsMaterial_y8ulr")
 
 [node name="Shape" type="CollisionShape3D" parent="LilGuy"]
 shape = SubResource("CapsuleShape3D_ctvon")
@@ -18,16 +28,35 @@ shape = SubResource("CapsuleShape3D_ctvon")
 [node name="Mesh" type="MeshInstance3D" parent="LilGuy"]
 mesh = SubResource("CapsuleMesh_d3lnt")
 
-[node name="ConeTwistJoint3D" type="ConeTwistJoint3D" parent="."]
+[node name="CameraArm" type="SpringArm3D" parent="LilGuy"]
+transform = Transform3D(-0.999976, 0.00400389, -0.00567495, 0, 0.817101, 0.576495, 0.00694523, 0.576481, -0.817081, 0, 0, 0)
+collision_mask = 249
+spring_length = 10.0
+margin = 0.2
+
+[node name="Camera3D" type="Camera3D" parent="LilGuy/CameraArm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+current = true
+
+[node name="HingeLilGuyXLoad" type="HingeJoint3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 node_a = NodePath("../LilGuy")
 node_b = NodePath("../Load")
+angular_limit/enable = true
+angular_limit/upper = 0.523599
+angular_limit/lower = -0.523599
 
 [node name="Load" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+collision_layer = 2
+collision_mask = 241
+mass = 300.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.5, 0)
 
 [node name="Shape" type="CollisionShape3D" parent="Load"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-shape = SubResource("BoxShape3D_uhl1h")
+shape = SubResource("SphereShape3D_tpo1n")
 
 [node name="Load" type="MeshInstance3D" parent="Load/Shape"]
 mesh = SubResource("BoxMesh_dkt54")
