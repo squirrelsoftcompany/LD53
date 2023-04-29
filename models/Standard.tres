@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3]
+
+[ext_resource type="Shader" uid="uid://q5jfeakclkb2" path="res://models/Hubert.tres" id="1_e3ps3"]
+[ext_resource type="Texture2D" uid="uid://cgop83265wk5n" path="res://sprites/Palette.png" id="2_ga8el"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_e3ps3")
+shader_parameter/tex_frg_2 = ExtResource("2_ga8el")

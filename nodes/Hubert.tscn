@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsdmgwb24we00"]
+
+[ext_resource type="PackedScene" uid="uid://3n4ygfapfmnh" path="res://nodes/character.tscn" id="1_u4p0y"]
+[ext_resource type="Material" path="res://models/Standard.tres" id="2_06jjw"]
+[ext_resource type="ArrayMesh" uid="uid://mecled1csa01" path="res://models/HubertRoboto.obj" id="2_b2ilo"]
+[ext_resource type="ArrayMesh" uid="uid://c2a17mmln46o6" path="res://models/RobotoRickshaw.obj" id="3_ankll"]
+
+[node name="character" instance=ExtResource("1_u4p0y")]
+
+[node name="Shape" parent="LilGuy" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.76597, 0)
+
+[node name="Mesh" parent="LilGuy" index="1"]
+material_override = ExtResource("2_06jjw")
+mesh = ExtResource("2_b2ilo")
+
+[node name="ConeTwistJoint3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Load" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Shape" parent="Load" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Load" parent="Load/Shape" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+material_override = ExtResource("2_06jjw")
+mesh = ExtResource("3_ankll")
