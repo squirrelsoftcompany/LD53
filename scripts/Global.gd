@@ -8,7 +8,7 @@ signal gameover_dead
 var _current_scene: Node = null
 var _is_gameover := false
 var _main_menu := preload("res://levels/ui/MainMenu.tscn")
-var _overworld := preload("res://levels/Overworld.tscn")
+var _univers := preload("res://levels/Univers.tscn")
 
 
 func _ready() -> void:
@@ -21,8 +21,8 @@ func reload_current_scene() -> void:
 	var _return_val := get_tree().reload_current_scene()
 
 
-func goto_overworld() -> void:
-	_goto_scene(_overworld)
+func goto_univers() -> void:
+	_goto_scene(_univers)
 
 
 func goto_main_menu() -> void:
