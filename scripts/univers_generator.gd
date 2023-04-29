@@ -4,6 +4,12 @@ class_name Univers
 var planetNode = preload("res://nodes/planet.tscn")
 var sunNode = preload("res://nodes/sun.tscn")
 
+var dustTexture = preload("res://materials/dustBallMat.tres")
+var iceTexture = preload("res://materials/iceBallMat.tres")
+var lifeTexture = preload("res://materials/lifeBallMat.tres")
+
+var textureArray = [dustTexture,iceTexture,lifeTexture]
+
 #TODO : Expose variables
 var rng_seed : int = 0
 var radius : int = 15 
@@ -76,8 +82,10 @@ func createSun(pPosition : Vector3) -> void :
 	newMaterial.albedo_color = Color(0.92, 0.69, 0.13, 1.0)
 	sunMesh.material_override = newMaterial
 	
-func instantiatePlanet(pRadius : int = 1)-> Node3D : 
+func instantiatePlanet(pRadius : int = 1)-> Node3D :
 	var planetInstance = planetNode.instantiate()
+	var planetMesh = planetInstance.get_child(0)
+	planetMesh.set_material_override(textureArray[rng.randi_range(0,2)])
 	planetInstance.radius = pRadius
 	add_child(planetInstance)
 	planetArray.push_back(planetInstance)
