@@ -1,0 +1,45 @@
+[gd_resource type="Sky" load_steps=7 format=3 uid="uid://bjeqvdf4kilhf"]
+
+[ext_resource type="Shader" uid="uid://cxjkn7b4xubvw" path="res://materials/sky.tres" id="1_4gjy3"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_km2hf"]
+noise_type = 3
+frequency = 0.263
+fractal_lacunarity = 0.0
+fractal_gain = 0.849
+domain_warp_type = 2
+domain_warp_fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_o8yuq"]
+invert = true
+in_3d_space = true
+generate_mipmaps = false
+seamless_blend_skirt = 0.488
+normalize = false
+noise = SubResource("FastNoiseLite_km2hf")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tcoxy"]
+noise_type = 4
+frequency = 0.006
+fractal_octaves = 4
+fractal_lacunarity = 1.919
+fractal_gain = 0.548
+fractal_weighted_strength = 0.39
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_76un0"]
+width = 1024
+height = 1024
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.243
+normalize = false
+noise = SubResource("FastNoiseLite_tcoxy")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_giyht"]
+shader = ExtResource("1_4gjy3")
+shader_parameter/ColorParameter = Color(0.309804, 0.203922, 0.254902, 1)
+shader_parameter/tex_sky_3 = SubResource("NoiseTexture2D_76un0")
+shader_parameter/tex_sky_13 = SubResource("NoiseTexture2D_o8yuq")
+
+[resource]
+sky_material = SubResource("ShaderMaterial_giyht")
