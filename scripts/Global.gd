@@ -8,7 +8,7 @@ signal gameover_dead
 var _current_scene: Node = null
 var _is_gameover := false
 var _main_menu := preload("res://levels/ui/MainMenu.tscn")
-var _univers := preload("res://levels/Univers.tscn")
+var _world := preload("res://levels/World.tscn")
 
 
 func _ready() -> void:
@@ -21,8 +21,8 @@ func reload_current_scene() -> void:
 	var _return_val := get_tree().reload_current_scene()
 
 
-func goto_univers() -> void:
-	_goto_scene(_univers)
+func goto_world() -> void:
+	_goto_scene(_world)
 
 
 func goto_main_menu() -> void:
@@ -55,6 +55,7 @@ func _deferred_goto_scene(scene: Resource) -> void:
 
 func reinit() -> void:
 	_is_gameover = false
+	get_tree().paused = false
 
 
 func dead() -> void:
