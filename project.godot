@@ -26,3 +26,7 @@ Global="*res://scripts/Global.gd"
 [rendering]
 
 renderer/rendering_method="mobile"
+
+[specific]
+
+gravity/scale_by_radius=0.33

@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://ciu87la8vbl5i"]
+
+[sub_resource type="GDScript" id="GDScript_m1lym"]
+resource_name = "Planete"
+script/source = "extends Node3D
+
+
+@export_range(0, 100) var radius = 1
+@export_range(1, 5, 0.25) var gravity_shape_scale = 1.5
+
+
+@onready var gravity_area = $%GravityArea
+@onready var gravity_shape = $%GravityShape
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	scale = Vector3.ONE * radius*2
+	gravity_shape.scale = Vector3.ONE * gravity_shape_scale
+	var gravity_scale_by_radius = ProjectSettings.get_setting(\"specific/gravity/scale_by_radius\", 0)
+	if gravity_scale_by_radius != 0:
+		gravity_area.gravity = 9.8 * radius * gravity_scale_by_radius
+	else:
+		gravity_area.gravity = 9.8
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	pass
+"
+
+[sub_resource type="SphereMesh" id="SphereMesh_wxs20"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_i7idm"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7dtnh"]
+
+[node name="Planete" type="Node3D"]
+script = SubResource("GDScript_m1lym")
+
+[node name="Sphere" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_wxs20")
+
+[node name="CollisionBody" type="StaticBody3D" parent="."]
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+
+[node name="CollisionShape" type="CollisionShape3D" parent="CollisionBody"]
+shape = SubResource("SphereShape3D_i7idm")
+
+[node name="GravityArea" type="Area3D" parent="."]
+unique_name_in_owner = true
+gravity_space_override = 1
+gravity_point = true
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+
+[node name="GravityShape" type="CollisionShape3D" parent="GravityArea"]
+unique_name_in_owner = true
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_7dtnh")
