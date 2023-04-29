@@ -12,7 +12,6 @@ var mediumPlanetesNumber : int = 5
 var bigPlanetesNumber : int = 2
 var interplanetaryMinDistance: int = 5
 var rng = RandomNumberGenerator.new()
-#TODO: array of "Planet" objects, for now use Vector3 to save positions
 var planeteArray: Array[Node3D]
 
 func _init() -> void:
