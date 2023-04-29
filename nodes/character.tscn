@@ -1,8 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://3n4ygfapfmnh"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y8ulr"]
-friction = 0.0
-bounce = 0.25
+[ext_resource type="PhysicsMaterial" uid="uid://cnr64geca6o4o" path="res://materials/bouncy_physics.tres" id="1_c7f2t"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ctvon"]
 
@@ -15,21 +13,24 @@ bounce = 0.25
 [node name="character" type="Node3D"]
 
 [node name="LilGuy" type="RigidBody3D" parent="."]
+unique_name_in_owner = true
 collision_layer = 2
 collision_mask = 241
 mass = 80.0
 center_of_mass_mode = 1
-center_of_mass = Vector3(0, -0.5, 0)
-physics_material_override = SubResource("PhysicsMaterial_y8ulr")
+center_of_mass = Vector3(0, -0.6, 0)
+physics_material_override = ExtResource("1_c7f2t")
 
 [node name="Shape" type="CollisionShape3D" parent="LilGuy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 shape = SubResource("CapsuleShape3D_ctvon")
 
 [node name="Mesh" type="MeshInstance3D" parent="LilGuy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 mesh = SubResource("CapsuleMesh_d3lnt")
 
 [node name="CameraArm" type="SpringArm3D" parent="LilGuy"]
-transform = Transform3D(-0.999976, 0.00400389, -0.00567495, 0, 0.817101, 0.576495, 0.00694523, 0.576481, -0.817081, 0, 0, 0)
+transform = Transform3D(-1, -5.01437e-08, 7.16125e-08, 0, 0.819152, 0.573576, -8.74228e-08, 0.573577, -0.819152, 0, 1.2, 0)
 collision_mask = 249
 spring_length = 10.0
 margin = 0.2
@@ -51,13 +52,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 collision_layer = 2
 collision_mask = 241
 mass = 300.0
-center_of_mass_mode = 1
-center_of_mass = Vector3(0, -0.5, 0)
+physics_material_override = ExtResource("1_c7f2t")
 
 [node name="Shape" type="CollisionShape3D" parent="Load"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.6, 0)
 shape = SubResource("SphereShape3D_tpo1n")
 
-[node name="Load" type="MeshInstance3D" parent="Load/Shape"]
+[node name="Load" type="MeshInstance3D" parent="Load"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.6, 0)
 mesh = SubResource("BoxMesh_dkt54")
-skeleton = NodePath("../../../LilGuy")
+skeleton = NodePath("../../LilGuy")
