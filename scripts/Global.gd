@@ -1,9 +1,24 @@
 extends Node
+class_name GlobalData
 
 
+signal delivery_timeout
 signal gameover_timeout
 signal gameover_dead
 
+
+var delivery_count := 0.0
+var delivery_total := 0.0
+var delivery_time := 0.0:
+	set(new_value):
+		delivery_time = new_value if new_value > 0.0 else 0.0
+		if delivery_time <= 0.0:
+			delivery_mised()
+var global_time := 0.0:
+	set(new_value):
+		global_time = new_value if new_value > 0.0 else 0.0
+		if global_time <= 0.0:
+			timeout()
 
 var _current_scene: Node = null
 var _is_gameover := false
@@ -14,11 +29,6 @@ var _world := preload("res://levels/World.tscn")
 func _ready() -> void:
 	var root = get_tree().get_root()
 	_current_scene = root.get_child(1)
-
-
-func reload_current_scene() -> void:
-	reinit()
-	var _return_val := get_tree().reload_current_scene()
 
 
 func goto_world() -> void:
@@ -68,3 +78,9 @@ func timeout() -> void:
 	if not _is_gameover:
 		emit_signal("gameover_timeout")
 		_is_gameover = true
+
+
+func delivery_mised() -> void:
+	if not _is_gameover:
+		emit_signal("delivery_timeout")
+

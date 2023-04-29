@@ -1,18 +1,28 @@
 extends Node3D
 
 
-@onready var _pause_canvas := $PauseCanvas
+@onready var _hud := $HUD
 
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
-		_pause_canvas.visible = !_pause_canvas.visible
-		get_tree().paused = _pause_canvas.visible
+func _ready() -> void:
+	# Init TODO
+	Global.delivery_count = 1
+	Global.delivery_total = 10
+	Global.delivery_time = 30.0
+	Global.global_time = 90.0
+	Global.connect("gameover_timeout", _on_gameover_timeout)
+	Global.connect("delivery_timeout", _on_delivery_timeout)
 
 
-func _on_quit_pressed() -> void:
-	get_tree().quit()
+func _process(delta: float) -> void:
+	Global.delivery_time = Global.delivery_time - delta
+	Global.global_time = Global.global_time - delta
 
 
-func _on_main_menu_pressed() -> void:
-	Global.goto_main_menu()
+func _on_gameover_timeout() -> void:
+	_hud.gameover()
+
+
+func _on_delivery_timeout() -> void:
+	print("LOUPED")
+	# TODO

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bod7h2ewook7h"]
+[gd_scene load_steps=4 format=3 uid="uid://bod7h2ewook7h"]
 
 [ext_resource type="Script" path="res://levels/World.gd" id="1_kb4rl"]
 [ext_resource type="PackedScene" uid="uid://ox1vxfdy4xrc" path="res://levels/Univers.tscn" id="2_qs2mn"]
+[ext_resource type="PackedScene" uid="uid://ccyxjn27it1rx" path="res://levels/HUD.tscn" id="3_o4u7u"]
 
 [node name="World" type="Node3D"]
 process_mode = 3
@@ -10,31 +11,4 @@ script = ExtResource("1_kb4rl")
 [node name="Univers" parent="." instance=ExtResource("2_qs2mn")]
 process_mode = 1
 
-[node name="PauseCanvas" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="ButtonContainer" type="VBoxContainer" parent="PauseCanvas"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -179.0
-offset_top = -33.0
-offset_right = 179.0
-offset_bottom = 33.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MainMenu" type="Button" parent="PauseCanvas/ButtonContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Main Menu"
-
-[node name="Quit" type="Button" parent="PauseCanvas/ButtonContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Quit"
-
-[connection signal="pressed" from="PauseCanvas/ButtonContainer/MainMenu" to="." method="_on_main_menu_pressed"]
-[connection signal="pressed" from="PauseCanvas/ButtonContainer/Quit" to="." method="_on_quit_pressed"]
+[node name="HUD" parent="." instance=ExtResource("3_o4u7u")]
