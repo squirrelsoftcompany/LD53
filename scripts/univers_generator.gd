@@ -14,6 +14,9 @@ var rng = RandomNumberGenerator.new()
 #TODO: array of "Planet" objects, for now use Vector3 to save positions
 var planeteArray: Array[Node3D]
 
+@onready var _pause_canvas := $PauseCanvas
+
+
 func _init() -> void:
 	rng.set_seed(seed)
 
@@ -27,10 +30,17 @@ func _ready() -> void:
 	for planeteIndex in tinyPlanetesNumber:
 		createTinyPlanete(generateValidPosition())
 
-		
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed:
+		if event.get_keycode() == KEY_P: 
+			_pause_canvas.visible = !_pause_canvas.visible
+
 
 func generateValidPosition() -> Vector3:
 	var validPosition = false
@@ -78,3 +88,11 @@ func createShere(pPosition : Vector3) -> void :
 	planeteInstance.set_mesh(planeteMesh)
 	add_child(planeteInstance)
 	planeteInstance.set_position(pPosition)
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()
+
+
+func _on_main_menu_pressed() -> void:
+	Global.goto_main_menu()
