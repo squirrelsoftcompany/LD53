@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cmfqksfke5qis"]
 
 [ext_resource type="PackedScene" uid="uid://ciu87la8vbl5i" path="res://nodes/planet.tscn" id="1_2g3yj"]
-[ext_resource type="PackedScene" uid="uid://w7ur0umrwi53" path="res://nodes/hubert.tscn" id="2_4wrc1"]
+[ext_resource type="PackedScene" uid="uid://w7ur0umrwi53" path="res://nodes/Hubert.tscn" id="2_4wrc1"]
 
 [node name="test_chris" type="Node3D"]
 
