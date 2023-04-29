@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dbx3m32vkltqr"]
+[gd_scene load_steps=2 format=3 uid="uid://gafc4xg6y8p4"]
 
-[ext_resource type="PackedScene" uid="uid://ciu87la8vbl5i" path="res://nodes/planete.tscn" id="1_yt64j"]
+[ext_resource type="PackedScene" path="res://nodes/planet.tscn" id="1_yt64j"]
 
 [node name="Sun" instance=ExtResource("1_yt64j")]
 

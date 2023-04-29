@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://duux4hvyxfdep"]
+[gd_scene load_steps=3 format=3 uid="uid://bdt32i7y653jp"]
 
-[ext_resource type="Sky" uid="uid://bjeqvdf4kilhf" path="res://materials/SkyBox.tres" id="1_dfpel"]
+[ext_resource type="Sky" uid="uid://bp0xb050n14cu" path="res://materials/SkyBox.tres" id="1_dfpel"]
 
 [sub_resource type="Environment" id="Environment_3bin1"]
 background_mode = 2

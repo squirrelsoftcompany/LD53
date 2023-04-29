@@ -1,8 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://ox1vxfdy4xrc"]
+[gd_scene load_steps=8 format=3 uid="uid://ox1vxfdy4xrc"]
 
 [ext_resource type="Script" path="res://scripts/univers_generator.gd" id="1_53e8m"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="2_ls0t3"]
-[ext_resource type="PackedScene" uid="uid://duux4hvyxfdep" path="res://nodes/EnvironementSkyBox.tscn" id="3_cmgak"]
+[ext_resource type="Texture2D" uid="uid://diakv2qdi74h" path="res://sprites/PH_SkyBox.png" id="4_phtxd"]
+
+[sub_resource type="Shader" id="Shader_r3jri"]
+code = "shader_type sky;
+
+uniform sampler2D skyTexture;
+
+void sky() {
+	COLOR = texture(skyTexture,SKY_COORDS).rgb;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_miu7b"]
+shader = SubResource("Shader_r3jri")
+shader_parameter/skyTexture = ExtResource("4_phtxd")
+
+[sub_resource type="Sky" id="Sky_x1vkw"]
+sky_material = SubResource("ShaderMaterial_miu7b")
+
+[sub_resource type="Environment" id="Environment_sd64n"]
+background_mode = 2
+sky = SubResource("Sky_x1vkw")
+ambient_light_source = 2
+ambient_light_color = Color(0.47451, 0.47451, 0.47451, 1)
 
 [node name="Univers" type="Node3D"]
 script = ExtResource("1_53e8m")
@@ -11,4 +34,8 @@ script = ExtResource("1_53e8m")
 transform = Transform3D(1, 0, 0, 0, 0.820112, 0.572203, 0, -0.572203, 0.820112, -0.0529032, 21.3962, 26.0414)
 script = ExtResource("2_ls0t3")
 
-[node name="WorldEnvironment2" parent="." instance=ExtResource("3_cmgak")]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.820112, 0.572203, 0, -0.572203, 0.820112, -12.551, 35.2736, 26.0414)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sd64n")

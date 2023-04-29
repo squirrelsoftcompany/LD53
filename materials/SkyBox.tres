@@ -1,6 +1,6 @@
-[gd_resource type="Sky" load_steps=7 format=3 uid="uid://bjeqvdf4kilhf"]
+[gd_resource type="Sky" load_steps=7 format=3 uid="uid://bp0xb050n14cu"]
 
-[ext_resource type="Shader" uid="uid://cxjkn7b4xubvw" path="res://materials/sky.tres" id="1_4gjy3"]
+[ext_resource type="Shader" uid="uid://c6qlro22j2d22" path="res://materials/sky.tres" id="1_4gjy3"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_km2hf"]
 noise_type = 3

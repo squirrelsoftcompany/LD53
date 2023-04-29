@@ -5,10 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://ccyxjn27it1rx" path="res://levels/HUD.tscn" id="3_o4u7u"]
 
 [node name="World" type="Node3D"]
-process_mode = 3
 script = ExtResource("1_kb4rl")
 
-[node name="Univers" parent="." instance=ExtResource("2_qs2mn")]
-process_mode = 1
-
 [node name="HUD" parent="." instance=ExtResource("3_o4u7u")]
+
+[node name="Univers" parent="." instance=ExtResource("2_qs2mn")]

@@ -9,12 +9,12 @@ extends CanvasLayer
 
 
 func _process(_delta: float) -> void:
-	_delivery_count.text = "Delivery " + str(Global.delivery_count) + "/" + str(Global.delivery_total)
-	_delivery_timer.text = "(" + str(ceil(Global.delivery_time)) + ")"
-	var glob = Global.global_time
-	var second = int(ceil(Global.global_time)) % 60
-	var minute = (int(ceil(Global.global_time)) - second) / 60
-	_global_timer.text = "Remaining time " + str(minute) + ":" + str(second)
+	if not get_tree().paused:
+		_delivery_count.text = "Delivery " + str(Global.delivery_count) + "/" + str(Global.delivery_total)
+		_delivery_timer.text = "(" + str(ceil(Global.delivery_time)) + ")"
+		var second = int(ceil(Global.global_time)) % 60
+		var minute = (int(ceil(Global.global_time)) - second) / 60.0
+		_global_timer.text = "Remaining time " + str(minute) + ":" + str(second)
 
 
 func _input(event: InputEvent) -> void:
