@@ -1,20 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://dl42dk30ii8nn"]
+[gd_scene load_steps=3 format=3 uid="uid://cmfqksfke5qis"]
 
-[ext_resource type="PackedScene" uid="uid://ciu87la8vbl5i" path="res://nodes/planete.tscn" id="1_2g3yj"]
-[ext_resource type="PackedScene" uid="uid://3n4ygfapfmnh" path="res://nodes/character.tscn" id="2_fpfpc"]
+[ext_resource type="PackedScene" uid="uid://ciu87la8vbl5i" path="res://nodes/planet.tscn" id="1_2g3yj"]
+[ext_resource type="PackedScene" uid="uid://w7ur0umrwi53" path="res://nodes/hubert.tscn" id="2_4wrc1"]
 
 [node name="test_chris" type="Node3D"]
 
-[node name="Planete" parent="." instance=ExtResource("1_2g3yj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+[node name="planet" parent="." instance=ExtResource("1_2g3yj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)
 radius = 5
 
-[node name="Planete2" parent="." instance=ExtResource("1_2g3yj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+[node name="planet 2" parent="." instance=ExtResource("1_2g3yj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
 radius = 5
 
-[node name="Planete3" parent="." instance=ExtResource("1_2g3yj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11, 0)
+[node name="planet 3" parent="." instance=ExtResource("1_2g3yj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
 radius = 5
 
-[node name="character" parent="." instance=ExtResource("2_fpfpc")]
+[node name="character" parent="." instance=ExtResource("2_4wrc1")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.951605, -0.14616, 0.270342, 0, 0.879666, 0.475592, -0.307323, -0.452576, 0.837095, 12.5538, 28.0808, 33.1201)
+current = true
