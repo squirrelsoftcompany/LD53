@@ -8,21 +8,13 @@
 [node name="Planete" parent="." instance=ExtResource("1_2g3yj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
 radius = 5
-gravity_shape_scale = 2.0
 
 [node name="Planete2" parent="." instance=ExtResource("1_2g3yj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 radius = 5
-gravity_shape_scale = 2.0
 
 [node name="Planete3" parent="." instance=ExtResource("1_2g3yj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11, 0)
 radius = 5
-gravity_shape_scale = 2.0
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.999586, -0.00629661, 0.0280593, 0, 0.975734, 0.218959, -0.0287571, -0.218868, 0.975331, -0.249506, 8.59447, 16.8703)
-current = true
-fov = 90.0
 
 [node name="character" parent="." instance=ExtResource("2_fpfpc")]
