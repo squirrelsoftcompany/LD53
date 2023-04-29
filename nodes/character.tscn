@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://3n4ygfapfmnh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ctvon"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_d3lnt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uhl1h"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dkt54"]
+
+[node name="character" type="Node3D"]
+
+[node name="LilGuy" type="RigidBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="LilGuy"]
+shape = SubResource("CapsuleShape3D_ctvon")
+
+[node name="Mesh" type="MeshInstance3D" parent="LilGuy"]
+mesh = SubResource("CapsuleMesh_d3lnt")
+
+[node name="ConeTwistJoint3D" type="ConeTwistJoint3D" parent="."]
+node_a = NodePath("../LilGuy")
+node_b = NodePath("../Load")
+
+[node name="Load" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="Shape" type="CollisionShape3D" parent="Load"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_uhl1h")
+
+[node name="Load" type="MeshInstance3D" parent="Load/Shape"]
+mesh = SubResource("BoxMesh_dkt54")
+skeleton = NodePath("../../../LilGuy")
