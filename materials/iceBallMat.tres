@@ -22,6 +22,6 @@ noise = SubResource("FastNoiseLite_p6api")
 [resource]
 render_priority = 0
 shader = ExtResource("1_tip1y")
-shader_parameter/main_color = Color(0.305882, 0.666667, 0.686275, 1)
-shader_parameter/dirt_color = Color(0.792157, 0.780392, 0.8, 1)
+shader_parameter/Secundary_Color = Color(0, 0.588235, 0.823529, 1)
+shader_parameter/Main_Color = Color(0.968627, 1, 0.964706, 1)
 shader_parameter/tex_frg_2 = SubResource("NoiseTexture2D_d6u3k")
