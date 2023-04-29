@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbx3m32vkltqr"]
+
+[ext_resource type="PackedScene" uid="uid://ciu87la8vbl5i" path="res://nodes/planete.tscn" id="1_yt64j"]
+
+[node name="Sun" instance=ExtResource("1_yt64j")]
+
+[node name="SunLight" type="OmniLight3D" parent="." index="3"]
+light_energy = 10.0
+omni_range = 1000.0
+omni_attenuation = 0.5
