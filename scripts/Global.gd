@@ -1,14 +1,19 @@
 extends Node
 
-signal end_game_timeout
-signal end_game_dead
+
+signal gameover_timeout
+signal gameover_dead
+
 
 var _current_scene: Node = null
 var _is_gameover := false
+var _main_menu := preload("res://levels/ui/MainMenu.tscn")
+var _overworld := preload("res://levels/Overworld.tscn")
 
 
 func _ready() -> void:
-	goto_main_menu()
+	var root = get_tree().get_root()
+	_current_scene = root.get_child(1)
 
 
 func reload_current_scene() -> void:
@@ -17,16 +22,14 @@ func reload_current_scene() -> void:
 
 
 func goto_overworld() -> void:
-	#_goto_scene("res://levels/Overworld.tscn")
-	pass
+	_goto_scene(_overworld)
 
 
 func goto_main_menu() -> void:
-	#_goto_scene("res://levels/ui/MainMenuUI.tscn")
-	pass
+	_goto_scene(_main_menu)
 
 
-func _goto_scene(path: String) -> void:
+func _goto_scene(scene: Resource) -> void:
 	# This function will usually be called from a signal callback,
 	# or some other function in the current scene.
 	# Deleting the current scene at this point is
@@ -35,23 +38,16 @@ func _goto_scene(path: String) -> void:
 	
 	# The solution is to defer the load to a later time, when
 	# we can be sure that no code from the current scene is running:
-	call_deferred("_deferred_goto_scene", path)
+	call_deferred("_deferred_goto_scene", scene)
 
 
-func _deferred_goto_scene(path: String) -> void:
-	# Hack, I don't know why the object can be "Deleted Object" after reload
-	#if not is_instance_valid(_current_scene):
-	#	var root = get_tree().get_root()
-	#	_current_scene = root.get_child(1)
-
-	# It is now safe to remove the current scene
-	_current_scene.free()
-
-	# Load the new scene.
-	var s := ResourceLoader.load(path)
+func _deferred_goto_scene(scene: Resource) -> void:
+	# Remove the current scene
+	if _current_scene:
+		_current_scene.free()
 
 	# Instance the new scene.
-	_current_scene = s.instance()
+	_current_scene = scene.instantiate()
 
 	# Add it to the active scene, as child of root.
 	get_tree().get_root().add_child(_current_scene)
@@ -69,11 +65,11 @@ func reinit() -> void:
 
 func dead() -> void:
 	if not _is_gameover:
-		emit_signal("end_game_dead")
+		emit_signal("gameover_dead")
 		_is_gameover = true
 
 
 func timeout() -> void:
 	if not _is_gameover:
-		emit_signal("end_game_timeout")
+		emit_signal("gameover_timeout")
 		_is_gameover = true
