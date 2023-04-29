@@ -1,12 +1,53 @@
-[gd_scene load_steps=6 format=3 uid="uid://luaowbmcdiqw"]
+[gd_scene load_steps=7 format=3 uid="uid://3n4ygfapfmnh"]
 
 [ext_resource type="PhysicsMaterial" path="res://materials/bouncy_physics.tres" id="1_c7f2t"]
+
+[sub_resource type="GDScript" id="GDScript_7xj0i"]
+script/source = "extends RigidBody3D
+
+
+var closestPlanet : Node3D = null
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	var planets = get_tree().get_nodes_in_group(\"Planet\")
+	closestPlanet = planets.reduce(choosePlanet, null)
+
+
+func _physics_process(_delta: float) -> void:
+	if not closestPlanet:
+		return
+	
+	var planetPos = closestPlanet.position
+	var planetNormalish = (position - planetPos).normalized()
+	var lookingPoint = position + planetNormalish.cross(transform.basis.x)
+	var wantedTransform = transform.looking_at(lookingPoint, planetNormalish)
+	var quat = transform.basis.get_rotation_quaternion()
+	var wantedQuat = wantedTransform.basis.get_rotation_quaternion()
+	var neededQuat = wantedQuat * quat.inverse()
+	var neededAngle = neededQuat.get_angle()
+	if neededAngle > deg_to_rad(45):
+		apply_torque(neededQuat.get_axis() * mass * neededAngle * neededAngle/2)
+
+
+func choosePlanet(candidate : Node3D, current) -> Node3D:
+	var distCandidate = candidate.position.distance_squared_to(position) if candidate else INF
+	var distCurrent = current.position.distance_squared_to(position) if current else INF
+	return current if distCurrent <= distCandidate else candidate
+"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ctvon"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_d3lnt"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_tpo1n"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7e6d2"]
+height = 1.5
 
 [sub_resource type="BoxMesh" id="BoxMesh_dkt54"]
 
@@ -20,6 +61,7 @@ mass = 80.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.6, 0)
 physics_material_override = ExtResource("1_c7f2t")
+script = SubResource("GDScript_7xj0i")
 
 [node name="Shape" type="CollisionShape3D" parent="LilGuy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
@@ -55,8 +97,8 @@ mass = 300.0
 physics_material_override = ExtResource("1_c7f2t")
 
 [node name="Shape" type="CollisionShape3D" parent="Load"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.6, 0)
-shape = SubResource("SphereShape3D_tpo1n")
+transform = Transform3D(-8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0, 2, 0, 0.6, 0)
+shape = SubResource("CapsuleShape3D_7e6d2")
 
 [node name="Load" type="MeshInstance3D" parent="Load"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.6, 0)
