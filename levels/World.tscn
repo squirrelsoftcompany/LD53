@@ -4,12 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://ox1vxfdy4xrc" path="res://levels/Univers.tscn" id="2_qs2mn"]
 
 [node name="World" type="Node3D"]
+process_mode = 3
 script = ExtResource("1_kb4rl")
 
 [node name="Univers" parent="." instance=ExtResource("2_qs2mn")]
+process_mode = 1
 
 [node name="PauseCanvas" type="CanvasLayer" parent="."]
-process_mode = 3
 visible = false
 
 [node name="ButtonContainer" type="VBoxContainer" parent="PauseCanvas"]
