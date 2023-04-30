@@ -20,7 +20,10 @@ var _is_floating := false
 @onready var _move_speed = ProjectSettings.get_setting(\"specific/controls/move_speed\", 0)
 @onready var _jump_initial_impulse = ProjectSettings.get_setting(\"specific/controls/jump_initial_impulse\", 0)
 @onready var _floating_threshold = ProjectSettings.get_setting(\"specific/controls/floating_threshold\", 0)
+@onready var _audio_stream := $\"../AudioStreamPlayer\"
 
+var _jump_sound := preload(\"res://audio/jump.wav\")
+var _hit_the_floor_sound := preload(\"res://audio/hit_the_floor.wav\")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -32,6 +35,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event.is_action_pressed(\"go_up\"):
 		_jumped = true
+		_audio_stream.stop()
+		_audio_stream.stream = _jump_sound
+		_audio_stream.play()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -136,3 +142,5 @@ shape = SubResource("CapsuleShape3D_7e6d2")
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.6, 0)
 mesh = SubResource("BoxMesh_dkt54")
 skeleton = NodePath("../../LilGuy")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
