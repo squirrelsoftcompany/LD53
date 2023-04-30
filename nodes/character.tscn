@@ -86,8 +86,8 @@ func compute_direction_and_rotate_towards(up : Vector3, delta : float) -> Vector
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_d3lnt"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7e6d2"]
-height = 1.5
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ebcbx"]
+height = 1.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_dkt54"]
 
@@ -120,7 +120,7 @@ transform = Transform3D(1, 0, 0, 0, 0.949972, -0.312335, 0, 0.312335, 0.949972, 
 current = true
 
 [node name="HingeLilGuyYLoad" type="HingeJoint3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
 node_a = NodePath("../LilGuy")
 node_b = NodePath("../Load")
 angular_limit/enable = true
@@ -136,7 +136,7 @@ physics_material_override = ExtResource("1_c7f2t")
 
 [node name="Shape" type="CollisionShape3D" parent="Load"]
 transform = Transform3D(-8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0, 2, 0, 0.6, 0)
-shape = SubResource("CapsuleShape3D_7e6d2")
+shape = SubResource("CylinderShape3D_ebcbx")
 
 [node name="Load" type="MeshInstance3D" parent="Load"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.6, 0)
