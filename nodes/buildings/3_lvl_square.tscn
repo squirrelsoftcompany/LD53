@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://tk0ywvclgx3d"]
+[gd_scene load_steps=4 format=3 uid="uid://b4v8hbovvc0ag"]
 
-[ext_resource type="PackedScene" uid="uid://citsk2is7g14h" path="res://nodes/buildings/building.tscn" id="1_r36p2"]
+[ext_resource type="PackedScene" uid="uid://chxlyby6w75er" path="res://nodes/buildings/building.tscn" id="1_r36p2"]
 [ext_resource type="ArrayMesh" uid="uid://cjujg0xeuafff" path="res://models/3lvlsBuildings.obj" id="2_ctph1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cear5"]
