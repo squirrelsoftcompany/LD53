@@ -4,6 +4,7 @@ class_name GlobalData
 
 signal delivery_ok
 signal delivery_timeout
+signal new_delivery_point(delivery_point : Node3D)
 signal gameover_timeout
 signal gameover_dead
 
@@ -21,6 +22,7 @@ var global_time := 0.0:
 		global_time = new_value if new_value > 0.0 else 0.0
 		if global_time <= 0.0:
 			timeout()
+var current_delivery_point : Node3D = null
 
 var _current_scene: Node = null
 var _is_gameover := false
@@ -80,6 +82,7 @@ func _deferred_goto_scene(scene: Resource) -> void:
 func reinit() -> void:
 	_is_gameover = false
 	get_tree().paused = false
+	_select_next_delivery_point()
 
 
 func dead() -> void:
@@ -97,8 +100,23 @@ func timeout() -> void:
 func delivery_mised() -> void:
 	if not _is_gameover:
 		emit_signal("delivery_timeout")
+		_select_next_delivery_point()
 
 
 func delivery_success() -> void:
 	if not _is_gameover:
 		emit_signal("delivery_ok")
+		_select_next_delivery_point()
+
+
+func _select_next_delivery_point() -> void:
+	var planets := get_tree().get_nodes_in_group("Planet")
+	var facilities := []
+	for planet in planets:
+		facilities.append_array( planet.facilitiesArray )
+	if facilities.size() != 0:
+		current_delivery_point = facilities[randi_range(0, facilities.size())]
+		emit_signal("new_delivery_point", current_delivery_point)
+	else:
+		@warning_ignore("assert_always_false")
+		assert(false)
