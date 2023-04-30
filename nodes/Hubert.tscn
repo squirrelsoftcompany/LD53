@@ -7,10 +7,10 @@
 
 [node name="character" instance=ExtResource("1_u4p0y")]
 
-[node name="Shape" parent="LilGuy" index="0"]
+[node name="Shape" parent="LilGuy" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="Mesh" parent="LilGuy" index="1"]
+[node name="Mesh" parent="LilGuy" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 material_override = ExtResource("2_q4e0u")
 mesh = ExtResource("2_b2ilo")
