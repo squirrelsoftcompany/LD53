@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7tomat0bpqcw"]
+
+[ext_resource type="Texture2D" uid="uid://fql277o6n0hj" path="res://sprites/arrow0.png" id="1_2xnh7"]
+[ext_resource type="Texture2D" uid="uid://b0iaibwxffdyi" path="res://sprites/arrow1.png" id="2_krd1s"]
+[ext_resource type="Texture2D" uid="uid://brsdht4pbwlro" path="res://sprites/arrow2.png" id="3_yd6lk"]
+[ext_resource type="Texture2D" uid="uid://c6i7jxfmpnng6" path="res://sprites/arrow3.png" id="4_xwtvd"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_t1le1"]
+frames = 4
+speed_scale = 2.0
+frame_0/texture = ExtResource("1_2xnh7")
+frame_0/duration = 0.5
+frame_1/texture = ExtResource("2_krd1s")
+frame_1/duration = 0.3
+frame_2/texture = ExtResource("3_yd6lk")
+frame_2/duration = 0.5
+frame_3/texture = ExtResource("4_xwtvd")
+frame_3/duration = 0.3
+
+[node name="arrow" type="TextureRect"]
+texture_filter = 1
+texture_repeat = 1
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AnimatedTexture_t1le1")
