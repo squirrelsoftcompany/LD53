@@ -5,7 +5,7 @@ extends Control
 @export var target_3d_position : Vector3
 
 
-@onready var _texture := $%TextureRect
+@onready var _texture := $%arrow
 
 
 # Called when the node enters the scene tree for the first time.
