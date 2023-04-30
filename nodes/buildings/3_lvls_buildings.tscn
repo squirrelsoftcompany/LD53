@@ -6,3 +6,4 @@
 [node name="3LvlsBuildings" type="MeshInstance3D"]
 material_override = ExtResource("1_gmmkh")
 mesh = ExtResource("2_j6xga")
+metadata/size = 2
