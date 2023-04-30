@@ -26,7 +26,7 @@ func _on_gameover_timeout() -> void:
 
 func _on_delivery_timeout() -> void:
 	_fail_audio_stream.play()
-	Global.delivery_time = 3.0
+	Global.delivery_time = 30.0
 	if Global.delivery_count == Global.delivery_total:
 		_hud.gameover("Congratulation: All deliveries are completed for today")
 	Global.delivery_count += 1
