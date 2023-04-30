@@ -64,21 +64,23 @@ func isValidPosition(pPosition : Vector3, pDistanceMinToCenter := 0.0) -> bool:
 	return true
 	
 func createTinyPlanet(pPosition : Vector3) -> void : 
-	var planet = instantiatePlanet(3)
+	var planet = instantiatePlanet(tinyPlanetsSize)
+	planet.generateFacilities(1)
 	planet.set_position(pPosition)
 	
 func createMediumPlanet(pPosition : Vector3) -> void : 
-	var planet = instantiatePlanet(8)
+	var planet = instantiatePlanet(mediumPlanetsSize)
+	planet.generateFacilities(2)
 	planet.set_position(pPosition)
 	
 func createBigPlanet(pPosition : Vector3) -> void : 
-	var planet = instantiatePlanet(12)
+	var planet = instantiatePlanet(bigPlanetsSize)
 	planet.generateFacilities(3)
 	planet.set_position(pPosition)
 	
 func createSun(pPosition : Vector3) -> void :
 	# TODO : instantiate a sun node.
-	var planet = instantiateSun(8)
+	var planet = instantiateSun(bigPlanetsSize)
 	var sunMesh = planet.get_child(0)
 	# TODO : Change material and shadow behavior directly in the sun scene
 	sunMesh.set_cast_shadows_setting(MeshInstance3D.SHADOW_CASTING_SETTING_OFF)
