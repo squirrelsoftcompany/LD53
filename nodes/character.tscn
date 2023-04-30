@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://3n4ygfapfmnh"]
+[gd_scene load_steps=8 format=3 uid="uid://3n4ygfapfmnh"]
 
 [ext_resource type="PhysicsMaterial" path="res://materials/bouncy_physics.tres" id="1_c7f2t"]
+[ext_resource type="AudioStream" uid="uid://cnpmany7n3yxy" path="res://audio/move_idle.wav" id="2_pujsb"]
 
 [sub_resource type="GDScript" id="GDScript_7xj0i"]
 resource_name = "character"
@@ -13,7 +14,8 @@ var _move_direction := Vector3.ZERO
 var _jumped := false
 var _is_floating := false
 var _is_grounded := false
-
+var _is_moving := false
+var _is_moving_sound_triggered := false
 
 @onready var _loadBody := $\"../Load\"
 @onready var _base_gravity = ProjectSettings.get_setting(\"specific/gravity/base_gravity\", 9.8)
@@ -21,11 +23,17 @@ var _is_grounded := false
 @onready var _move_speed = ProjectSettings.get_setting(\"specific/controls/move_speed\", 0)
 @onready var _jump_initial_impulse = ProjectSettings.get_setting(\"specific/controls/jump_initial_impulse\", 0)
 @onready var _floating_threshold = ProjectSettings.get_setting(\"specific/controls/floating_threshold\", 0)
-@onready var _audio_stream := $\"../AudioStreamPlayer\"
+@onready var _jump_audio_stream := $\"../JumpAudioStream\"
+@onready var _move_audio_stream := $\"../MoveAudioStream\"
+#@onready var _move_idle_audio_stream := $\"../MoveIdleAudioStream\"
 @onready var _ray := $RayCast3D
 
 var _jump_sound := preload(\"res://audio/jump.wav\")
 var _hit_the_floor_sound := preload(\"res://audio/hit_the_floor.wav\")
+var _rcs_sound := preload(\"res://audio/rcs.wav\")
+var _move_sound := preload(\"res://audio/move.wav\")
+#var _move_idle_sound := preload(\"res://audio/move_idle.wav\")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,22 +41,46 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _is_floating:
-		return
-	if event.is_action_pressed(\"go_up\"):
-		_jumped = true
-		_audio_stream.stop()
-		_audio_stream.stream = _jump_sound
-		_audio_stream.play()
+	if not _is_floating:
+		if event.is_action_pressed(\"go_up\"):
+			_jumped = true
+			_jump_audio_stream.stop()
+			_jump_audio_stream.stream = _jump_sound
+			_jump_audio_stream.play()
+			_is_moving_sound_triggered = false
+			return
+	
+	var move = Input.get_action_strength(\"go_back\")
+	move += Input.get_action_strength(\"go_front\")
+	move += Input.get_action_strength(\"go_left\")
+	move += Input.get_action_strength(\"go_right\")
+	if not _is_grounded:
+		move += Input.get_action_strength(\"go_down\")
+		move += Input.get_action_strength(\"go_up\")
+	_is_moving = move > 0.0
+	
+	if _is_moving:
+		if not _is_moving_sound_triggered:
+			_move_audio_stream.stop()
+			if not _is_grounded:
+				_move_audio_stream.stream = _rcs_sound
+			else:
+				_move_audio_stream.stream = _move_sound
+			_move_audio_stream.play()
+			_is_moving_sound_triggered = true
+	else:
+		_move_audio_stream.stop()
+		_is_moving_sound_triggered = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	var tmp_grounded = _ray.is_colliding()
 	if tmp_grounded and not _is_grounded:
-		_audio_stream.stop()
-		_audio_stream.stream = _hit_the_floor_sound
-		_audio_stream.play()
+		_jump_audio_stream.stop()
+		_jump_audio_stream.stream = _hit_the_floor_sound
+		_jump_audio_stream.play()
+		_is_moving_sound_triggered = false
 	_is_grounded = tmp_grounded
 
 
@@ -159,4 +191,10 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.6, 0)
 mesh = SubResource("BoxMesh_dkt54")
 skeleton = NodePath("../../LilGuy")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="JumpAudioStream" type="AudioStreamPlayer" parent="."]
+
+[node name="MoveIdleAudioStream" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_pujsb")
+autoplay = true
+
+[node name="MoveAudioStream" type="AudioStreamPlayer" parent="."]
