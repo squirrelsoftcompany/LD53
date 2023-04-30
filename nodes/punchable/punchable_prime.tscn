@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cir2tly3b3yjk"]
+
+[ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="1_pib5d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ivd7j"]
+
+[node name="punchablePrime" type="RigidBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_pib5d")
+mesh = SubResource("BoxMesh_ivd7j")

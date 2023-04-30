@@ -1,8 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://u2ubq64cm2m7"]
+[gd_scene load_steps=4 format=3 uid="uid://cyh8tw0wocdw6"]
 
-[ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="1_fdafx"]
-[ext_resource type="ArrayMesh" uid="uid://5ia8vv5e2r8v" path="res://models/Bin.obj" id="2_sbvdr"]
+[ext_resource type="PackedScene" uid="uid://cir2tly3b3yjk" path="res://nodes/punchable/punchable_prime.tscn" id="1_ntiwr"]
+[ext_resource type="ArrayMesh" uid="uid://5ia8vv5e2r8v" path="res://models/Bin.obj" id="2_yt0ta"]
 
-[node name="Bin" type="MeshInstance3D"]
-material_override = ExtResource("1_fdafx")
-mesh = ExtResource("2_sbvdr")
+[sub_resource type="BoxShape3D" id="BoxShape3D_tidyc"]
+size = Vector3(1.68437, 3.0848, 1.64268)
+
+[node name="Bin" instance=ExtResource("1_ntiwr")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58135, 0)
+shape = SubResource("BoxShape3D_tidyc")
+
+[node name="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1225, 0)
+mesh = ExtResource("2_yt0ta")

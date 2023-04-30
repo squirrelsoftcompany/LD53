@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://tk0ywvclgx3d"]
+
+[ext_resource type="PackedScene" uid="uid://citsk2is7g14h" path="res://nodes/buildings/building.tscn" id="1_r36p2"]
+[ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="2_171cg"]
+[ext_resource type="ArrayMesh" uid="uid://cjujg0xeuafff" path="res://models/3lvlsBuildings.obj" id="2_ctph1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cear5"]
+size = Vector3(10.0221, 11.7906, 8.9457)
+
+[node name="3lvlSquare" instance=ExtResource("1_r36p2")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.89432, 0)
+shape = SubResource("BoxShape3D_cear5")
+
+[node name="MeshInstance3D" parent="." index="1"]
+material_override = ExtResource("2_171cg")
+mesh = ExtResource("2_ctph1")

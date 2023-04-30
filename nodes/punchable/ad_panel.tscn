@@ -1,8 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwx21m1whwbam"]
+[gd_scene load_steps=4 format=3 uid="uid://ute54n5shv5d"]
 
-[ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="1_482h7"]
-[ext_resource type="ArrayMesh" uid="uid://bp3p0rux7pop3" path="res://models/AdPanel.obj" id="2_bqnpd"]
+[ext_resource type="PackedScene" uid="uid://cir2tly3b3yjk" path="res://nodes/punchable/punchable_prime.tscn" id="1_pkmt5"]
+[ext_resource type="ArrayMesh" uid="uid://bp3p0rux7pop3" path="res://models/AdPanel.obj" id="2_2whkb"]
 
-[node name="AdPanel" type="MeshInstance3D"]
-material_override = ExtResource("1_482h7")
-mesh = ExtResource("2_bqnpd")
+[sub_resource type="BoxShape3D" id="BoxShape3D_kw83n"]
+size = Vector3(3.51853, 5.73518, 0.815963)
+
+[node name="AdPanel" instance=ExtResource("1_pkmt5")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.00287, 0)
+shape = SubResource("BoxShape3D_kw83n")
+
+[node name="MeshInstance3D" parent="." index="1"]
+mesh = ExtResource("2_2whkb")
