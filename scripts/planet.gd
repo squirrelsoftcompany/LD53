@@ -25,8 +25,8 @@ func _ready() -> void:
 	
 	# scale gravity by radius
 	var base_gravity = ProjectSettings.get_setting("specific/gravity/base_gravity", 0)
-	var gravity_scale = ProjectSettings.get_setting("specific/gravity/base_radius_4_base_gravity", 0)
-	gravity_scale = radius / gravity_scale if gravity_scale != 0 else radius
+	var base_radius = ProjectSettings.get_setting("specific/gravity/base_radius_4_base_gravity", 0)
+	var gravity_scale = radius / base_radius if base_radius != 0 else radius
 	gravity_area.gravity = base_gravity * gravity_scale
 
 
