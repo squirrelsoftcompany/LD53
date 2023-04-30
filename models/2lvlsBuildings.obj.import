@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://p2jkap1dna6n"
+path="res://.godot/imported/2lvlsBuildings.obj-f5fa7fde0e1240b2f2ee37ebb60a8830.mesh"
+
+[deps]
+
+files=["res://.godot/imported/2lvlsBuildings.obj-f5fa7fde0e1240b2f2ee37ebb60a8830.mesh"]
+
+source_file="res://models/2lvlsBuildings.obj"
+dest_files=["res://.godot/imported/2lvlsBuildings.obj-f5fa7fde0e1240b2f2ee37ebb60a8830.mesh", "res://.godot/imported/2lvlsBuildings.obj-f5fa7fde0e1240b2f2ee37ebb60a8830.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

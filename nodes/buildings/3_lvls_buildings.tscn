@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://d25u5a8oc51j7"]
+
+[ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="1_gmmkh"]
+[ext_resource type="ArrayMesh" uid="uid://cjujg0xeuafff" path="res://models/3lvlsBuildings.obj" id="2_j6xga"]
+
+[node name="3LvlsBuildings" type="MeshInstance3D"]
+material_override = ExtResource("1_gmmkh")
+mesh = ExtResource("2_j6xga")
