@@ -1,38 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ckx6wrnlv4upu"]
 
-[sub_resource type="GDScript" id="GDScript_m1lym"]
-resource_name = "planet"
-script/source = "extends Node3D
-
-
-@export_range(0, 100) var radius = 1
-
-
-@onready var gravity_area = $%GravityArea
-@onready var gravity_shape = $%GravityShape
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	# planet radius
-	scale = Vector3.ONE * radius*2
-	gravity_area.gravity_point_unit_distance = radius
-	
-	# area radius
-	var area_radius_scale = ProjectSettings.get_setting(\"specific/gravity/area_radius_scale\", 0)
-	gravity_shape.scale = Vector3.ONE * area_radius_scale
-	
-	# scale gravity by radius
-	var base_gravity = ProjectSettings.get_setting(\"specific/gravity/base_gravity\", 0)
-	var gravity_scale = ProjectSettings.get_setting(\"specific/gravity/base_radius_4_base_gravity\", 0)
-	gravity_scale = radius / gravity_scale if gravity_scale != 0 else radius
-	gravity_area.gravity = base_gravity * gravity_scale
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-"
+[ext_resource type="Script" path="res://scripts/planet.gd" id="1_fxocl"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_wxs20"]
 
@@ -41,7 +9,7 @@ func _process(_delta: float) -> void:
 [sub_resource type="SphereShape3D" id="SphereShape3D_7dtnh"]
 
 [node name="planet" type="Node3D" groups=["Planet"]]
-script = SubResource("GDScript_m1lym")
+script = ExtResource("1_fxocl")
 
 [node name="Sphere" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_wxs20")

@@ -1,0 +1,92 @@
+[gd_scene load_steps=12 format=3 uid="uid://d2jepv1h0chd5"]
+
+[ext_resource type="Shader" uid="uid://c3pbth8878m87" path="res://materials/Xray.tres" id="1_p2gnb"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_eyffg"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nhp46"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_33wri"]
+output_port_for_preview = 0
+expanded_output_ports = [0]
+texture = SubResource("CompressedTexture2D_nhp46")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_jwnpo"]
+constant = Color(0.139764, 0.472656, 0.129599, 1)
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_0ffjh"]
+output_port_for_preview = 0
+input_name = "uv2"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_llc6s"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(1.875, 0.733)]
+op_type = 0
+operator = 2
+
+[sub_resource type="VisualShader" id="VisualShader_sl1nh"]
+code = "shader_type spatial;
+render_mode blend_mul, depth_draw_never, depth_test_disabled;
+
+uniform sampler2D tex_frg_4 : source_color;
+
+
+
+void fragment() {
+// Input:6
+	vec2 n_out6p0 = UV2;
+
+
+// VectorOp:7
+	vec2 n_in7p1 = vec2(1.87500, 0.73300);
+	vec2 n_out7p0 = n_out6p0 * n_in7p1;
+
+
+// Texture2D:4
+	vec4 n_out4p0 = texture(tex_frg_4, n_out7p0);
+
+
+// Output:0
+	ALBEDO = vec3(n_out4p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(-557.971, -41.1159)
+modes/blend = 3
+modes/depth_draw = 2
+flags/depth_test_disabled = true
+nodes/fragment/0/position = Vector2(700, 120)
+nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_33wri")
+nodes/fragment/4/position = Vector2(60, 180)
+nodes/fragment/5/node = SubResource("VisualShaderNodeColorConstant_jwnpo")
+nodes/fragment/5/position = Vector2(400, 120)
+nodes/fragment/6/node = SubResource("VisualShaderNodeInput_0ffjh")
+nodes/fragment/6/position = Vector2(-520, 240)
+nodes/fragment/7/node = SubResource("VisualShaderNodeVectorOp_llc6s")
+nodes/fragment/7/position = Vector2(-155.115, 316.104)
+nodes/fragment/connections = PackedInt32Array(4, 0, 0, 0, 6, 0, 7, 0, 7, 0, 4, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dc4fl"]
+render_priority = 32
+shader = SubResource("VisualShader_sl1nh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ena0h"]
+render_priority = 10
+next_pass = SubResource("ShaderMaterial_dc4fl")
+shader = ExtResource("1_p2gnb")
+shader_parameter/BlinkRate = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_o6oga"]
+
+[node name="test_xav" type="Node2D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1.26703, 0)
+mesh = SubResource("SphereMesh_eyffg")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.750053, -0.661377, 0, 0.661377, 0.750053, 0.272738, 4.89558, -2.48178)
+material_override = SubResource("ShaderMaterial_ena0h")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_o6oga")

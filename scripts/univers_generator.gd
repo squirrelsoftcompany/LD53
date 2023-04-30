@@ -69,6 +69,7 @@ func createMediumPlanet(pPosition : Vector3) -> void :
 	
 func createBigPlanet(pPosition : Vector3) -> void : 
 	var planet = instantiatePlanet(6)
+	planet.generateFacilities(3)
 	planet.set_position(pPosition)
 	
 func createSun(pPosition : Vector3) -> void :
