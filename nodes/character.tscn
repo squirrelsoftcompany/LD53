@@ -1,13 +1,26 @@
 [gd_scene load_steps=7 format=3 uid="uid://3n4ygfapfmnh"]
 
-[ext_resource type="PhysicsMaterial" path="res://materials/bouncy_physics.tres" id="1_c7f2t"]
+[ext_resource type="PhysicsMaterial" uid="uid://cnr64geca6o4o" path="res://materials/bouncy_physics.tres" id="1_c7f2t"]
 
 [sub_resource type="GDScript" id="GDScript_7xj0i"]
 resource_name = "character"
 script/source = "extends RigidBody3D
 
 
-var closestPlanet : Node3D = null
+#var closestPlanet : Node3D = null
+var local_gravity := Vector3.ZERO
+var local_gravity_scale := 0.0
+var _move_direction := Vector3.ZERO
+var _last_strong_direction := Vector3.FORWARD
+var jumped := false
+var is_floating := false
+@onready var _loadBody := $\"../Load\"
+
+
+#const force := Vector3(2, 4, 2)
+const rotation_speed = 400
+const move_speed = 400
+const jump_initial_impulse = 1600
 
 
 # Called when the node enters the scene tree for the first time.
@@ -15,26 +28,118 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
+func _unhandled_input(_event: InputEvent) -> void:
+#	direction = Vector3.ZERO
+#	if event.is_action_pressed(\"go_back\", true):
+#		direction.z += -1
+#	if event.is_action_pressed(\"go_front\", true):
+#		direction.z += 1
+#	if event.is_action_pressed(\"go_right\", true):
+#		direction.x += -1
+#	if event.is_action_pressed(\"go_left\", true):
+#		direction.x += 1
+#	if event.is_action_pressed(\"go_down\", true):
+#		direction.y += -1
+#	if event.is_action_pressed(\"go_up\", true):
+#		direction.y += 1
+#
+#	if direction.length_squared() > 0:
+#		direction.normalized()
+#		apply_central_impulse(transform.basis * direction * force)
+	if _event.is_action_pressed(\"go_up\") and not is_floating:
+		jumped = true
+	pass
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	var planets = get_tree().get_nodes_in_group(\"Planet\")
-	closestPlanet = planets.reduce(choosePlanet, null)
+	#var planets = get_tree().get_nodes_in_group(\"Planet\")
+	#closestPlanet = planets.reduce(choosePlanet, null)
+	pass
 
 
 func _physics_process(_delta: float) -> void:
-	if not closestPlanet:
-		return
+	# manage rotation toward planet
+	#if not closestPlanet:
+	#	return
+
+	#var planetPos = closestPlanet.position
+	#var planetNormalish = (position - planetPos).normalized()
+	#var lookingPoint = position + planetNormalish.cross(transform.basis.x)
+	#var wantedTransform = transform.looking_at(lookingPoint, planetNormalish)
+	#var quat = transform.basis.get_rotation_quaternion()
+	#var wantedQuat = wantedTransform.basis.get_rotation_quaternion()
+	#var neededQuat = wantedQuat * quat.inverse()
+	#var neededAngle = neededQuat.get_angle()
+	#if neededAngle > deg_to_rad(45):
+	#	apply_torque(neededQuat.get_axis() * mass * neededAngle * neededAngle/2)
+	#transform.interpolate_with(wantedTransform, _delta)
 	
-	var planetPos = closestPlanet.position
-	var planetNormalish = (position - planetPos).normalized()
-	var lookingPoint = position + planetNormalish.cross(transform.basis.x)
-	var wantedTransform = transform.looking_at(lookingPoint, planetNormalish)
-	var quat = transform.basis.get_rotation_quaternion()
-	var wantedQuat = wantedTransform.basis.get_rotation_quaternion()
-	var neededQuat = wantedQuat * quat.inverse()
-	var neededAngle = neededQuat.get_angle()
-	if neededAngle > deg_to_rad(45):
-		apply_torque(neededQuat.get_axis() * mass * neededAngle * neededAngle/2)
+	# manage rotation towards direction
+	pass
+
+
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	local_gravity_scale = state.total_gravity.length()
+	is_floating = is_equal_approx(local_gravity_scale, 0)
+	local_gravity = state.total_gravity.normalized() if not is_floating else Vector3.ZERO
+	var _up = -local_gravity if not is_floating else transform.basis.y
+
+	if _move_direction.length() > 0.2:
+		_last_strong_direction = _move_direction.normalized()
+
+	_move_direction = get_model_oriented_direction(_up, state.step)
+	#_orient_character_to_direction(_last_strong_direction, _up, state.step)
+
+	if _move_direction.length() > 0:
+		print(\"_move_direction: \" + str(_move_direction))
+
+	if jumped:
+		jumped = false
+		apply_central_impulse(_up * jump_initial_impulse)
+		_loadBody.apply_central_impulse(_up * jump_initial_impulse)
+
+	apply_central_force(_move_direction * move_speed)
+	_loadBody.apply_central_force(_move_direction * move_speed / 2)
+
+
+func get_model_oriented_direction(_up : Vector3, delta : float) -> Vector3:
+	var move_forward = Input.get_action_strength(\"go_front\") - Input.get_action_strength(\"go_back\")
+	var move_left = Input.get_action_strength(\"go_left\") - Input.get_action_strength(\"go_right\")
+	var forward = transform.basis.x.cross(_up)
+	
+	var rotation_basis = Basis(transform.basis.x, _up, forward).orthonormalized()
+	var new_direction = rotation_basis * Vector3(move_left, 0, move_forward)
+	
+	if new_direction.length() > 0.2:
+		print(\"dot2: \" + str(new_direction.dot(transform.basis.z)))
+		var new_rotation_basis = Basis(_up.cross(new_direction), _up, new_direction).orthonormalized()
+		transform.basis.slerp(new_rotation_basis, delta * rotation_speed * local_gravity_scale)
+	elif forward.dot(transform.basis.z) < 0.90 :
+		print(\"dot: \" + str(forward.dot(transform.basis.z)))
+		transform.basis.slerp(rotation_basis, delta * rotation_speed * local_gravity_scale)
+	
+	return new_direction
+
+
+func _orient_character_to_direction(direction : Vector3, up : Vector3, delta : float) -> void:
+	if is_equal_approx(direction.length(), 0):
+		return
+	var left_axis := up.cross(direction)
+	var rotation_basis := Basis(left_axis, up, direction).orthonormalized()
+#	transform.basis = Basis(
+#		transform.basis.get_rotation_quaternion().slerp(
+#			rotation_basis.get_rotation_quaternion(), delta * rotation_speed)
+#		).orthonormalized()
+
+#	var quat := transform.basis.get_rotation_quaternion()
+#	var quat2 := rotation_basis.get_rotation_quaternion()
+#	var finalQuat := quat.slerp(quat2, delta * rotation_speed)
+#	var finalBasis := Basis(finalQuat)
+#	finalBasis = finalBasis.orthonormalized()
+#	transform.basis = finalBasis
+
+	transform.basis.slerp(rotation_basis, delta * rotation_speed)
 
 
 func choosePlanet(candidate : Node3D, current) -> Node3D:
@@ -43,7 +148,7 @@ func choosePlanet(candidate : Node3D, current) -> Node3D:
 	return current if distCurrent <= distCandidate else candidate
 "
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ctvon"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xa7to"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_d3lnt"]
 
@@ -59,14 +164,12 @@ unique_name_in_owner = true
 collision_layer = 2
 collision_mask = 241
 mass = 80.0
-center_of_mass_mode = 1
-center_of_mass = Vector3(0, -0.6, 0)
 physics_material_override = ExtResource("1_c7f2t")
 script = SubResource("GDScript_7xj0i")
 
 [node name="Shape" type="CollisionShape3D" parent="LilGuy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
-shape = SubResource("CapsuleShape3D_ctvon")
+shape = SubResource("CapsuleShape3D_xa7to")
 
 [node name="Mesh" type="MeshInstance3D" parent="LilGuy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
@@ -87,14 +190,14 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 
 node_a = NodePath("../LilGuy")
 node_b = NodePath("../Load")
 angular_limit/enable = true
-angular_limit/upper = 0.523599
-angular_limit/lower = -0.523599
+angular_limit/upper = 0.174533
+angular_limit/lower = -0.174533
 
 [node name="Load" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 collision_layer = 2
 collision_mask = 241
-mass = 300.0
+mass = 80.0
 physics_material_override = ExtResource("1_c7f2t")
 
 [node name="Shape" type="CollisionShape3D" parent="Load"]

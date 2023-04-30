@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bortqraxeb2lg"]
 
-[ext_resource type="PackedScene" uid="uid://luaowbmcdiqw" path="res://nodes/character.tscn" id="1_u4p0y"]
+[ext_resource type="PackedScene" uid="uid://3n4ygfapfmnh" path="res://nodes/character.tscn" id="1_u4p0y"]
 [ext_resource type="ArrayMesh" uid="uid://mecled1csa01" path="res://models/HubertRoboto.obj" id="2_b2ilo"]
 [ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="2_q4e0u"]
 [ext_resource type="ArrayMesh" uid="uid://c2a17mmln46o6" path="res://models/RobotoRickshaw.obj" id="3_ankll"]
