@@ -29,7 +29,7 @@ var _is_moving_sound_triggered := false
 @onready var _ray := $RayCast3D
 
 var _jump_sound := preload(\"res://audio/jump.wav\")
-var _hit_the_floor_sound := preload(\"res://audio/hit_the_floor.wav\")
+var _hit_the_floor_sound := preload(\"res://audio/hit.wav\")
 var _rcs_sound := preload(\"res://audio/rcs.wav\")
 var _move_sound := preload(\"res://audio/move.wav\")
 #var _move_idle_sound := preload(\"res://audio/move_idle.wav\")

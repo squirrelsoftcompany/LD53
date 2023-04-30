@@ -2,6 +2,7 @@ extends Node
 class_name GlobalData
 
 
+signal delivery_ok
 signal delivery_timeout
 signal gameover_timeout
 signal gameover_dead
@@ -93,3 +94,7 @@ func delivery_mised() -> void:
 	if not _is_gameover:
 		emit_signal("delivery_timeout")
 
+
+func delivery_success() -> void:
+	if not _is_gameover:
+		emit_signal("delivery_ok")

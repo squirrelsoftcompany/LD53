@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://bod7h2ewook7h"]
+[gd_scene load_steps=9 format=3 uid="uid://bod7h2ewook7h"]
 
 [ext_resource type="Script" path="res://levels/World.gd" id="1_kb4rl"]
 [ext_resource type="PackedScene" uid="uid://ox1vxfdy4xrc" path="res://levels/Univers.tscn" id="2_qs2mn"]
 [ext_resource type="PackedScene" uid="uid://ccyxjn27it1rx" path="res://levels/HUD.tscn" id="3_o4u7u"]
 [ext_resource type="AudioStream" uid="uid://bsf5lujmvvq45" path="res://audio/fail.mp3" id="4_8fmgy"]
+[ext_resource type="AudioStream" uid="uid://ccuq5t2ltbki1" path="res://audio/delivery_ok.wav" id="5_gljm3"]
+[ext_resource type="AudioStream" uid="uid://dqedcsdmhshfs" path="res://audio/critical_failure.wav" id="6_0fwvs"]
+[ext_resource type="AudioStream" uid="uid://coabxvkcuibss" path="res://audio/victory.wav" id="7_hr1kv"]
+[ext_resource type="AudioStream" uid="uid://dxd6k8f5xw1nm" path="res://audio/timer.wav" id="8_ycryp"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_kb4rl")
@@ -13,4 +17,21 @@ script = ExtResource("1_kb4rl")
 [node name="Univers" parent="." instance=ExtResource("2_qs2mn")]
 
 [node name="FailAudioStream" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("4_8fmgy")
+
+[node name="DeliveryOkAudioStream" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("5_gljm3")
+
+[node name="CriticalFailureAudioStream" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("6_0fwvs")
+
+[node name="VictoryAudioStream" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("7_hr1kv")
+
+[node name="TimerAudioStream" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("8_ycryp")
