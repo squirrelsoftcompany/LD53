@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmfqksfke5qis"]
+[gd_scene load_steps=6 format=3 uid="uid://cmfqksfke5qis"]
 
 [ext_resource type="PackedScene" uid="uid://ckx6wrnlv4upu" path="res://nodes/planet.tscn" id="1_2g3yj"]
 [ext_resource type="PackedScene" uid="uid://bortqraxeb2lg" path="res://nodes/Hubert.tscn" id="2_4wrc1"]
 [ext_resource type="PackedScene" uid="uid://bdt32i7y653jp" path="res://nodes/EnvironementSkyBox.tscn" id="3_ld1q6"]
-[ext_resource type="PackedScene" path="res://levels/HUD.tscn" id="4_6c4gu"]
+[ext_resource type="PackedScene" uid="uid://cyrh3a14oke1y" path="res://levels/HUD.tscn" id="4_6c4gu"]
+[ext_resource type="PackedScene" uid="uid://cwo6q1yjwkeby" path="res://nodes/ui/DeliveryPointArrow.tscn" id="5_rqg2p"]
 
 [node name="test_chris" type="Node3D"]
 
@@ -28,3 +29,5 @@ transform = Transform3D(0.951605, -0.14616, 0.270342, 0, 0.879666, 0.475592, -0.
 [node name="WorldEnvironment" parent="." instance=ExtResource("3_ld1q6")]
 
 [node name="HUD" parent="." instance=ExtResource("4_6c4gu")]
+
+[node name="DeliveryPointArrow" parent="." instance=ExtResource("5_rqg2p")]

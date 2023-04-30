@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwo6q1yjwkeby"]
+
+[ext_resource type="Script" path="res://nodes/DeliveryPointArrow.gd" id="1_2pfg8"]
+[ext_resource type="Texture2D" uid="uid://c4gh7nbxjvg4" path="res://sprites/direction_arrow.png" id="2_vwj1o"]
+
+[node name="DeliveryPointArrow" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2pfg8")
+target_3d_position = Vector3(0, 20, 0)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("2_vwj1o")
