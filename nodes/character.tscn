@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://3n4ygfapfmnh"]
 
-[ext_resource type="PhysicsMaterial" uid="uid://cnr64geca6o4o" path="res://materials/bouncy_physics.tres" id="1_c7f2t"]
+[ext_resource type="PhysicsMaterial" path="res://materials/bouncy_physics.tres" id="1_c7f2t"]
 
 [sub_resource type="GDScript" id="GDScript_7xj0i"]
 resource_name = "character"
@@ -12,6 +12,7 @@ var _local_gravity_scale := 0.0
 var _move_direction := Vector3.ZERO
 var _jumped := false
 var _is_floating := false
+var _is_grounded := false
 
 
 @onready var _loadBody := $\"../Load\"
@@ -21,6 +22,7 @@ var _is_floating := false
 @onready var _jump_initial_impulse = ProjectSettings.get_setting(\"specific/controls/jump_initial_impulse\", 0)
 @onready var _floating_threshold = ProjectSettings.get_setting(\"specific/controls/floating_threshold\", 0)
 @onready var _audio_stream := $\"../AudioStreamPlayer\"
+@onready var _ray := $RayCast3D
 
 var _jump_sound := preload(\"res://audio/jump.wav\")
 var _hit_the_floor_sound := preload(\"res://audio/hit_the_floor.wav\")
@@ -42,7 +44,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	pass
+	var tmp_grounded = _ray.is_colliding()
+	if tmp_grounded and not _is_grounded:
+		_audio_stream.stop()
+		_audio_stream.stream = _hit_the_floor_sound
+		_audio_stream.play()
+	_is_grounded = tmp_grounded
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
@@ -95,11 +102,20 @@ height = 1.0
 
 [node name="LilGuy" type="RigidBody3D" parent="."]
 unique_name_in_owner = true
+disable_mode = 2
 collision_layer = 2
 collision_mask = 241
 mass = 80.0
 physics_material_override = ExtResource("1_c7f2t")
 script = SubResource("GDScript_7xj0i")
+
+[node name="RayCast3D" type="RayCast3D" parent="LilGuy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.424202, 0.00855708)
+target_position = Vector3(2.08165e-12, -0.1, 2.08165e-12)
+hit_from_inside = true
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 0, 0, 1)
+debug_shape_thickness = 5
 
 [node name="Shape" type="CollisionShape3D" parent="LilGuy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
