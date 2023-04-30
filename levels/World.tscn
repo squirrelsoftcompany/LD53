@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bod7h2ewook7h"]
+[gd_scene load_steps=10 format=3 uid="uid://bod7h2ewook7h"]
 
 [ext_resource type="Script" path="res://levels/World.gd" id="1_kb4rl"]
 [ext_resource type="PackedScene" uid="uid://ox1vxfdy4xrc" path="res://levels/Univers.tscn" id="2_qs2mn"]
 [ext_resource type="PackedScene" uid="uid://ccyxjn27it1rx" path="res://levels/HUD.tscn" id="3_o4u7u"]
 [ext_resource type="AudioStream" uid="uid://bsf5lujmvvq45" path="res://audio/fail.mp3" id="4_8fmgy"]
 [ext_resource type="AudioStream" uid="uid://b6g8tnq0mqp4y" path="res://audio/sound_track_01.mp3" id="5_0iiyh"]
+[ext_resource type="PackedScene" uid="uid://cwo6q1yjwkeby" path="res://nodes/ui/DeliveryPointArrow.tscn" id="9_u8m1l"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_kb4rl")
@@ -33,6 +34,8 @@ bus = &"SoundEffect"
 [node name="TimerAudioStream" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 bus = &"SoundEffect"
+
+[node name="DeliveryPointArrow" parent="." instance=ExtResource("9_u8m1l")]
 
 [node name="Music_Track01" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_0iiyh")
