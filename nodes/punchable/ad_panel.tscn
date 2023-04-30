@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwx21m1whwbam"]
+
+[ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="1_482h7"]
+[ext_resource type="ArrayMesh" uid="uid://bp3p0rux7pop3" path="res://models/AdPanel.obj" id="2_bqnpd"]
+
+[node name="AdPanel" type="MeshInstance3D"]
+material_override = ExtResource("1_482h7")
+mesh = ExtResource("2_bqnpd")

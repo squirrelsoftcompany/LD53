@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bp3p0rux7pop3"
+path="res://.godot/imported/AdPanel.obj-978ee791f1f0628edc568c443afb5569.mesh"
+
+[deps]
+
+files=["res://.godot/imported/AdPanel.obj-978ee791f1f0628edc568c443afb5569.mesh"]
+
+source_file="res://models/AdPanel.obj"
+dest_files=["res://.godot/imported/AdPanel.obj-978ee791f1f0628edc568c443afb5569.mesh", "res://.godot/imported/AdPanel.obj-978ee791f1f0628edc568c443afb5569.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

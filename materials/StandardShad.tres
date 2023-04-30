@@ -1,6 +1,7 @@
-[gd_resource type="VisualShader" load_steps=5 format=3 uid="uid://q5jfeakclkb2"]
+[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://q5jfeakclkb2"]
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ckywq"]
+source = 5
 texture_type = 1
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_23210"]
@@ -16,15 +17,21 @@ function = 2
 default_input_values = [0, false, 1, Vector3(1, 1, 1), 2, Vector3(0, 0, 0)]
 op_type = 4
 
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_45w86"]
+parameter_name = "Palette"
+texture_filter = 1
+texture_repeat = 2
+
 [resource]
 code = "shader_type spatial;
-uniform sampler2D tex_frg_2 : source_color;
+uniform sampler2D Palette : filter_nearest, repeat_disable;
 
 
 
 void fragment() {
+	vec4 n_out2p0;
 // Texture2D:2
-	vec4 n_out2p0 = texture(tex_frg_2, UV);
+	n_out2p0 = texture(Palette, UV);
 
 
 // Input:3
@@ -50,7 +57,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-182, 164)
+graph_offset = Vector2(-627.511, -38.924)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_ckywq")
 nodes/fragment/2/position = Vector2(-400, 60)
 nodes/fragment/3/node = SubResource("VisualShaderNodeInput_23210")
@@ -59,4 +66,6 @@ nodes/fragment/4/node = SubResource("VisualShaderNodeCompare_1hpn6")
 nodes/fragment/4/position = Vector2(-260, 320)
 nodes/fragment/5/node = SubResource("VisualShaderNodeSwitch_3f4f1")
 nodes/fragment/5/position = Vector2(80, 300)
-nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 3, 2, 4, 0, 4, 0, 5, 0, 2, 0, 5, 1, 5, 0, 0, 5)
+nodes/fragment/6/node = SubResource("VisualShaderNodeTexture2DParameter_45w86")
+nodes/fragment/6/position = Vector2(-1040, 40)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 3, 2, 4, 0, 4, 0, 5, 0, 2, 0, 5, 1, 5, 0, 0, 5, 6, 0, 2, 2)

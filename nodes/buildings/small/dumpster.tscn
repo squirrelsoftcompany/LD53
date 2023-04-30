@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyjq0jc3gc8qs"]
+
+[ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="1_uw4wt"]
+[ext_resource type="ArrayMesh" uid="uid://dtevhnfrpdk8o" path="res://models/Dumpster.obj" id="2_obshj"]
+
+[node name="Dumpster" type="MeshInstance3D"]
+material_override = ExtResource("1_uw4wt")
+mesh = ExtResource("2_obshj")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ntqrogk674cs"]
+
+[ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="1_feyk7"]
+[ext_resource type="ArrayMesh" uid="uid://4fys5eejg5wp" path="res://models/MailBox.obj" id="2_674ct"]
+
+[node name="MailBox" type="MeshInstance3D"]
+material_override = ExtResource("1_feyk7")
+mesh = ExtResource("2_674ct")

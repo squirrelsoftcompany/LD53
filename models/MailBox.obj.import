@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://4fys5eejg5wp"
+path="res://.godot/imported/MailBox.obj-87855af60def963827e8c2bf17f55a5b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/MailBox.obj-87855af60def963827e8c2bf17f55a5b.mesh"]
+
+source_file="res://models/MailBox.obj"
+dest_files=["res://.godot/imported/MailBox.obj-87855af60def963827e8c2bf17f55a5b.mesh", "res://.godot/imported/MailBox.obj-87855af60def963827e8c2bf17f55a5b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

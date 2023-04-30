@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtg13awqd75gj"]
+
+[ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="1_4hjoy"]
+[ext_resource type="ArrayMesh" uid="uid://dv5h260684cfd" path="res://models/Locker.obj" id="2_tsbms"]
+
+[node name="Locker" type="MeshInstance3D"]
+material_override = ExtResource("1_4hjoy")
+mesh = ExtResource("2_tsbms")

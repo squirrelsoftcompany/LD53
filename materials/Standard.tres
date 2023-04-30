@@ -6,4 +6,4 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_e3ps3")
-shader_parameter/tex_frg_2 = ExtResource("2_ga8el")
+shader_parameter/Palette = ExtResource("2_ga8el")

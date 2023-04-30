@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://u2ubq64cm2m7"]
+
+[ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="1_fdafx"]
+[ext_resource type="ArrayMesh" uid="uid://5ia8vv5e2r8v" path="res://models/Bin.obj" id="2_sbvdr"]
+
+[node name="Bin" type="MeshInstance3D"]
+material_override = ExtResource("1_fdafx")
+mesh = ExtResource("2_sbvdr")
