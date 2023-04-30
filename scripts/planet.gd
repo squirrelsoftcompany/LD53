@@ -65,9 +65,12 @@ func generateFacilities(pCount: int) -> void:
 func randomFacilitySelection() -> Node3D:
 	var newFacility : Node3D = null
 	while !newFacility:
-		var index = rng.randi_range(0,Global._globalFacilitiesArray.size()-1)
-		var facilityInstance = Global._globalFacilitiesArray[index].instantiate()
-		#if facilityInstance.get_meta("size") < (radius * 0.2): #No little facility exist yet so this line is just pseudocode
+		var index = rng.randi_range(0,Global._globalFacilitiesAssetArray.size()-1)
+		var facilityInstance = Global._globalFacilitiesAssetArray[index].instantiate()
+		# Small planet can only used small facility
+		if radius == ProjectSettings.get_setting("specific/univers_generator/tiny_planet_size", 0):
+			if facilityInstance.get_meta("size") > 1:
+				continue
 		newFacility = facilityInstance
 	return newFacility
 	

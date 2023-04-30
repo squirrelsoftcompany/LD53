@@ -30,9 +30,13 @@ var _rng = RandomNumberGenerator.new()
 var rng_seed : int = 0
 
 #Facilities loading
-var facility_1 := preload("res://nodes/buildings/2_lvls_buildings.tscn")
-var facility_2 := preload("res://nodes/buildings/3_lvls_buildings.tscn")
-var _globalFacilitiesArray = [facility_1,facility_2]
+var facility_1 := preload("res://nodes/buildings/2_lvl_square.tscn")
+var facility_2 := preload("res://nodes/buildings/3_lvl_square.tscn")
+var facility_3 := preload("res://nodes/buildings/small/dumpster.tscn")
+var facility_4 := preload("res://nodes/buildings/small/locker.tscn")
+var facility_5 := preload("res://nodes/buildings/small/mail_box.tscn")
+@warning_ignore("unused_private_class_variable")
+var _globalFacilitiesAssetArray = [facility_1,facility_2,facility_3,facility_4,facility_5]
 
 
 func _ready() -> void:

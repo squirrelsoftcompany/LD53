@@ -85,9 +85,6 @@ func createSun(pPosition : Vector3) -> void :
 	# TODO : Change material and shadow behavior directly in the sun scene
 	sunMesh.set_cast_shadows_setting(MeshInstance3D.SHADOW_CASTING_SETTING_OFF)
 	planet.set_position(pPosition)
-#	var newMaterial = StandardMaterial3D.new()
-#	newMaterial.albedo_color = Color(0.92, 0.69, 0.13, 1.0)
-#	sunMesh.material_override = newMaterial
 	
 func instantiatePlanet(pRadius : int = 1)-> Node3D :
 	var planetInstance = planetNode.instantiate()

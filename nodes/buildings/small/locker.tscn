@@ -1,18 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://ci6tbg8y7bueo"]
+[gd_scene load_steps=4 format=3 uid="uid://ci6tbg8y7bueo"]
 
 [ext_resource type="PackedScene" uid="uid://citsk2is7g14h" path="res://nodes/buildings/building.tscn" id="1_ys46p"]
-[ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="2_0m7wn"]
 [ext_resource type="ArrayMesh" uid="uid://dv5h260684cfd" path="res://models/Locker.obj" id="2_fmlev"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wom7q"]
 size = Vector3(4.18738, 5.16761, 1)
 
 [node name="Locker" instance=ExtResource("1_ys46p")]
+metadata/size = 1
 
 [node name="CollisionShape3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84603, 0)
 shape = SubResource("BoxShape3D_wom7q")
 
 [node name="MeshInstance3D" parent="." index="1"]
-material_override = ExtResource("2_0m7wn")
 mesh = ExtResource("2_fmlev")

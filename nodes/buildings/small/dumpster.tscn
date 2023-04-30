@@ -1,18 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://cg74jku6kn0sk"]
+[gd_scene load_steps=4 format=3 uid="uid://cg74jku6kn0sk"]
 
 [ext_resource type="PackedScene" uid="uid://citsk2is7g14h" path="res://nodes/buildings/building.tscn" id="1_8jbie"]
 [ext_resource type="ArrayMesh" uid="uid://dtevhnfrpdk8o" path="res://models/Dumpster.obj" id="2_i14uq"]
-[ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="2_m1oam"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ou0da"]
 size = Vector3(4.47627, 3.82324, 3.29819)
 
 [node name="dumpster" instance=ExtResource("1_8jbie")]
+metadata/size = 1
 
 [node name="CollisionShape3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.71231, 0)
 shape = SubResource("BoxShape3D_ou0da")
 
 [node name="MeshInstance3D" parent="." index="1"]
-material_override = ExtResource("2_m1oam")
 mesh = ExtResource("2_i14uq")
