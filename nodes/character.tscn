@@ -47,7 +47,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			_jump_audio_stream.stop()
 			_jump_audio_stream.stream = _jump_sound
 			_jump_audio_stream.play()
+			_move_audio_stream.stop()
 			_is_moving_sound_triggered = false
+			_move_audio_stream.stream = null
 			return
 	
 	var move = Input.get_action_strength(\"go_back\")
@@ -71,6 +73,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	else:
 		_move_audio_stream.stop()
 		_is_moving_sound_triggered = false
+		_move_audio_stream.stream = null
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -80,7 +83,9 @@ func _process(_delta: float) -> void:
 		_jump_audio_stream.stop()
 		_jump_audio_stream.stream = _hit_the_floor_sound
 		_jump_audio_stream.play()
+		_move_audio_stream.stop()
 		_is_moving_sound_triggered = false
+		_move_audio_stream.stream = null
 	_is_grounded = tmp_grounded
 
 
