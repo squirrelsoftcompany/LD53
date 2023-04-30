@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bod7h2ewook7h"]
+[gd_scene load_steps=5 format=3 uid="uid://bod7h2ewook7h"]
 
 [ext_resource type="Script" path="res://levels/World.gd" id="1_kb4rl"]
 [ext_resource type="PackedScene" uid="uid://ox1vxfdy4xrc" path="res://levels/Univers.tscn" id="2_qs2mn"]
 [ext_resource type="PackedScene" uid="uid://ccyxjn27it1rx" path="res://levels/HUD.tscn" id="3_o4u7u"]
+[ext_resource type="AudioStream" uid="uid://bsf5lujmvvq45" path="res://audio/fail.mp3" id="4_8fmgy"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_kb4rl")
@@ -10,3 +11,6 @@ script = ExtResource("1_kb4rl")
 [node name="HUD" parent="." instance=ExtResource("3_o4u7u")]
 
 [node name="Univers" parent="." instance=ExtResource("2_qs2mn")]
+
+[node name="FailAudioStream" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_8fmgy")

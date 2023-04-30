@@ -2,6 +2,7 @@ extends Node3D
 
 
 @onready var _hud := $HUD
+@onready var _fail_audio_stream := $FailAudioStream
 
 
 func _ready() -> void:
@@ -20,9 +21,13 @@ func _process(delta: float) -> void:
 
 
 func _on_gameover_timeout() -> void:
-	_hud.gameover()
+	_hud.gameover("Game Over : Timeout")
 
 
 func _on_delivery_timeout() -> void:
-	print("LOUPED")
+	_fail_audio_stream.play()
+	Global.delivery_time = 3.0
+	if Global.delivery_count == Global.delivery_total:
+		_hud.gameover("Congratulation: All deliveries are completed for today")
+	Global.delivery_count += 1
 	# TODO

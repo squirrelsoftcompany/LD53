@@ -7,6 +7,7 @@ signal gameover_timeout
 signal gameover_dead
 
 
+var points := 0
 var delivery_count := 0.0
 var delivery_total := 0.0
 var delivery_time := 0.0:

@@ -6,6 +6,8 @@ extends CanvasLayer
 @onready var _global_timer := $HUDContainer/InfoContainer/GlobalTimer
 @onready var _gameover_data := $GameMenuContainer/GameOverData
 @onready var _game_menu := $GameMenuContainer
+@onready var _game_over_label := $GameMenuContainer/GameOverData/GameOver
+@onready var _game_over_points_label := $GameMenuContainer/GameOverData/Points
 
 
 func _process(_delta: float) -> void:
@@ -39,7 +41,9 @@ func _on_quit_pressed() -> void:
 	get_tree().quit()
 
 
-func gameover() -> void:
+func gameover(why: String) -> void:
 	get_tree().paused = true
 	_game_menu.visible = true
 	_gameover_data.visible = true
+	_game_over_label.text = why
+	_game_over_points_label.text = "Points : " + str(Global.points)
