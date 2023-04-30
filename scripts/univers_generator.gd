@@ -15,7 +15,7 @@ var rng
 @onready var radius = ProjectSettings.get_setting("specific/univers_generator/univers_radius", 0)
 @onready var tinyPlanetsNumber = ProjectSettings.get_setting("specific/univers_generator/tiny_planet_numbers", 0)
 @onready var mediumPlanetsNumber = ProjectSettings.get_setting("specific/univers_generator/medium_planet_numbers", 0)
-@onready var bigPlanetsNumber = ProjectSettings.get_setting("specific/univers_generator/big_radius", 0)
+@onready var bigPlanetsNumber = ProjectSettings.get_setting("specific/univers_generator/big_planet_numbers", 0)
 @onready var interplanetaryMinDistance = ProjectSettings.get_setting("specific/univers_generator/interplanetary_min_distance", 0)
 @onready var tinyPlanetsSize = ProjectSettings.get_setting("specific/univers_generator/tiny_planet_size", 0)
 @onready var mediumPlanetsSize = ProjectSettings.get_setting("specific/univers_generator/medium_planet_size", 0)
@@ -85,9 +85,9 @@ func createSun(pPosition : Vector3) -> void :
 	# TODO : Change material and shadow behavior directly in the sun scene
 	sunMesh.set_cast_shadows_setting(MeshInstance3D.SHADOW_CASTING_SETTING_OFF)
 	planet.set_position(pPosition)
-	var newMaterial = StandardMaterial3D.new()
-	newMaterial.albedo_color = Color(0.92, 0.69, 0.13, 1.0)
-	sunMesh.material_override = newMaterial
+#	var newMaterial = StandardMaterial3D.new()
+#	newMaterial.albedo_color = Color(0.92, 0.69, 0.13, 1.0)
+#	sunMesh.material_override = newMaterial
 	
 func instantiatePlanet(pRadius : int = 1)-> Node3D :
 	var planetInstance = planetNode.instantiate()

@@ -38,27 +38,39 @@ func _process(_delta: float) -> void:
 func generateFacilities(pCount: int) -> void:
 	var facilityGeneratedCount : int = 0
 	while facilityGeneratedCount < pCount:
-		var facilityMesh = BoxMesh.new()
-		var facilityInstance = MeshInstance3D.new()
-		facilityInstance.set_mesh(facilityMesh)
-		facilityInstance.scale = Vector3.ONE/(radius*2)
+
+		# Real implemantation, waiting for facilities
+		var facilityInstance = randomFacilitySelection()
 		add_child(facilityInstance)
+		
 		var validPosition = false
 		var radialVector
 		while (!validPosition):
 			validPosition = true
 			radialVector = generatePolarVector() * 0.5
 			for facility in facilitiesArray:
-				if radialVector.distance_to(facility.position) < 0.2 :
+				if radialVector.distance_to(facility.position) < 0.8 or radialVector.cross(Vector3.RIGHT) == Vector3.ZERO:
 					validPosition = false
-			
-					
+		
+		var rotateBasis = Basis(Vector3.LEFT, PI/2)
+		var base = facilityInstance.global_transform.basis.looking_at(radialVector.normalized(),Vector3.RIGHT)
+		facilityInstance.basis = base*rotateBasis
+		
 		facilityInstance.set_position(radialVector)
-		facilityInstance.look_at(radialVector,Vector3.UP)
+		facilityInstance.scale = Vector3.ONE/(radius*2)
+		
 		facilitiesArray.push_back(facilityInstance)
 		facilityGeneratedCount = facilityGeneratedCount + 1
 		
-		
+func randomFacilitySelection() -> Node3D:
+	var newFacility : Node3D = null
+	while !newFacility:
+		var index = rng.randi_range(0,Global._globalFacilitiesArray.size()-1)
+		var facilityInstance = Global._globalFacilitiesArray[index].instantiate()
+		#if facilityInstance.get_meta("size") < (radius * 0.2): #No little facility exist yet so this line is just pseudocode
+		newFacility = facilityInstance
+	return newFacility
+	
 func generatePolarVector() -> Vector3:
 	var generatedPosition = Vector3(rng.randf_range(-1,1),rng.randf_range(-1,1),rng.randf_range(-1,1))
 	while generatedPosition == Vector3(0,0,0):

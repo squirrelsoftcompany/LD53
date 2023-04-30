@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ox1vxfdy4xrc"]
+[gd_scene load_steps=4 format=3 uid="uid://ox1vxfdy4xrc"]
 
 [ext_resource type="Script" path="res://scripts/univers_generator.gd" id="1_53e8m"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="2_ls0t3"]
 [ext_resource type="PackedScene" uid="uid://bdt32i7y653jp" path="res://nodes/EnvironementSkyBox.tscn" id="3_p1oyf"]
-[ext_resource type="PackedScene" uid="uid://3n4ygfapfmnh" path="res://nodes/character.tscn" id="4_gw0n4"]
 
 [node name="Univers" type="Node3D"]
 
@@ -13,5 +12,3 @@ script = ExtResource("2_ls0t3")
 
 [node name="WorldEnvironment" parent="." instance=ExtResource("3_p1oyf")]
 script = ExtResource("1_53e8m")
-
-[node name="character" parent="." instance=ExtResource("4_gw0n4")]

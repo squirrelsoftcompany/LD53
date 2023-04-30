@@ -27,6 +27,11 @@ var _world := preload("res://levels/World.tscn")
 var _rng = RandomNumberGenerator.new()
 var rng_seed : int = 0
 
+#Facilities loading
+var facility_1 := preload("res://nodes/buildings/2_lvls_buildings.tscn")
+var facility_2 := preload("res://nodes/buildings/3_lvls_buildings.tscn")
+var _globalFacilitiesArray = [facility_1,facility_2]
+
 
 func _ready() -> void:
 	var root = get_tree().get_root()

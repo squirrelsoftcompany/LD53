@@ -1,8 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://gafc4xg6y8p4"]
+[gd_scene load_steps=4 format=3 uid="uid://gafc4xg6y8p4"]
 
 [ext_resource type="PackedScene" uid="uid://ckx6wrnlv4upu" path="res://nodes/planet.tscn" id="1_yt64j"]
+[ext_resource type="Shader" uid="uid://x4fq38gdiapv" path="res://materials/sun.tres" id="2_4dpxy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nu021"]
+render_priority = 0
+shader = ExtResource("2_4dpxy")
 
 [node name="Sun" instance=ExtResource("1_yt64j")]
+
+[node name="Sphere" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_nu021")
 
 [node name="SunLight" type="OmniLight3D" parent="." index="3"]
 light_energy = 10.0
