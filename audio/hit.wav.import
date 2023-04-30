@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://da8rwmtqbjam8"
-path="res://.godot/imported/hit_the_floor.wav-c102c3fc0c2ff4d4724a13f1e1c94775.sample"
+path="res://.godot/imported/hit.wav-0ce77c86b567f5096583f88ec20be939.sample"
 
 [deps]
 
-source_file="res://audio/hit_the_floor.wav"
-dest_files=["res://.godot/imported/hit_the_floor.wav-c102c3fc0c2ff4d4724a13f1e1c94775.sample"]
+source_file="res://audio/hit.wav"
+dest_files=["res://.godot/imported/hit.wav-0ce77c86b567f5096583f88ec20be939.sample"]
 
 [params]
 
