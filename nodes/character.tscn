@@ -7,20 +7,19 @@ resource_name = "character"
 script/source = "extends RigidBody3D
 
 
-#var closestPlanet : Node3D = null
-var local_gravity := Vector3.ZERO
-var local_gravity_scale := 0.0
+var _local_gravity := Vector3.ZERO
+var _local_gravity_scale := 0.0
 var _move_direction := Vector3.ZERO
-var _last_strong_direction := Vector3.FORWARD
-var jumped := false
-var is_floating := false
+var _jumped := false
+var _is_floating := false
+
+
 @onready var _loadBody := $\"../Load\"
-
-
-#const force := Vector3(2, 4, 2)
-const rotation_speed = 400
-const move_speed = 400
-const jump_initial_impulse = 1600
+@onready var _base_gravity = ProjectSettings.get_setting(\"specific/gravity/base_gravity\", 9.8)
+@onready var _rotation_speed = ProjectSettings.get_setting(\"specific/controls/rotation_speed\", 0)
+@onready var _move_speed = ProjectSettings.get_setting(\"specific/controls/move_speed\", 0)
+@onready var _jump_initial_impulse = ProjectSettings.get_setting(\"specific/controls/jump_initial_impulse\", 0)
+@onready var _floating_threshold = ProjectSettings.get_setting(\"specific/controls/floating_threshold\", 0)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,124 +27,53 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-func _unhandled_input(_event: InputEvent) -> void:
-#	direction = Vector3.ZERO
-#	if event.is_action_pressed(\"go_back\", true):
-#		direction.z += -1
-#	if event.is_action_pressed(\"go_front\", true):
-#		direction.z += 1
-#	if event.is_action_pressed(\"go_right\", true):
-#		direction.x += -1
-#	if event.is_action_pressed(\"go_left\", true):
-#		direction.x += 1
-#	if event.is_action_pressed(\"go_down\", true):
-#		direction.y += -1
-#	if event.is_action_pressed(\"go_up\", true):
-#		direction.y += 1
-#
-#	if direction.length_squared() > 0:
-#		direction.normalized()
-#		apply_central_impulse(transform.basis * direction * force)
-	if _event.is_action_pressed(\"go_up\") and not is_floating:
-		jumped = true
-	pass
+func _unhandled_input(event: InputEvent) -> void:
+	if _is_floating:
+		return
+	if event.is_action_pressed(\"go_up\"):
+		_jumped = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	#var planets = get_tree().get_nodes_in_group(\"Planet\")
-	#closestPlanet = planets.reduce(choosePlanet, null)
-	pass
-
-
-func _physics_process(_delta: float) -> void:
-	# manage rotation toward planet
-	#if not closestPlanet:
-	#	return
-
-	#var planetPos = closestPlanet.position
-	#var planetNormalish = (position - planetPos).normalized()
-	#var lookingPoint = position + planetNormalish.cross(transform.basis.x)
-	#var wantedTransform = transform.looking_at(lookingPoint, planetNormalish)
-	#var quat = transform.basis.get_rotation_quaternion()
-	#var wantedQuat = wantedTransform.basis.get_rotation_quaternion()
-	#var neededQuat = wantedQuat * quat.inverse()
-	#var neededAngle = neededQuat.get_angle()
-	#if neededAngle > deg_to_rad(45):
-	#	apply_torque(neededQuat.get_axis() * mass * neededAngle * neededAngle/2)
-	#transform.interpolate_with(wantedTransform, _delta)
-	
-	# manage rotation towards direction
 	pass
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	local_gravity_scale = state.total_gravity.length()
-	is_floating = is_equal_approx(local_gravity_scale, 0)
-	local_gravity = state.total_gravity.normalized() if not is_floating else Vector3.ZERO
-	var _up = -local_gravity if not is_floating else transform.basis.y
+	_local_gravity_scale = state.total_gravity.length()
+	_is_floating = _local_gravity_scale < _floating_threshold * _base_gravity
+	_local_gravity = state.total_gravity.normalized() if not _is_floating else Vector3.ZERO
+	var _up = -_local_gravity if not _is_floating else transform.basis.y
 
-	if _move_direction.length() > 0.2:
-		_last_strong_direction = _move_direction.normalized()
+	_move_direction = compute_direction_and_rotate_towards(_up, state.step)
 
-	_move_direction = get_model_oriented_direction(_up, state.step)
-	#_orient_character_to_direction(_last_strong_direction, _up, state.step)
+	if _jumped:
+		apply_central_impulse(_up * mass * (_jump_initial_impulse + _local_gravity_scale))
+		_loadBody.apply_central_impulse(_up * _loadBody.mass * (_jump_initial_impulse / 2 + _local_gravity_scale))
+		_jumped = false
 
-	if _move_direction.length() > 0:
-		print(\"_move_direction: \" + str(_move_direction))
-
-	if jumped:
-		jumped = false
-		apply_central_impulse(_up * jump_initial_impulse)
-		_loadBody.apply_central_impulse(_up * jump_initial_impulse)
-
-	apply_central_force(_move_direction * move_speed)
-	_loadBody.apply_central_force(_move_direction * move_speed / 2)
+	apply_central_force(_move_direction * mass * _move_speed)
+	_loadBody.apply_central_force(_move_direction * _loadBody.mass * _move_speed / 2)
 
 
-func get_model_oriented_direction(_up : Vector3, delta : float) -> Vector3:
+func compute_direction_and_rotate_towards(up : Vector3, delta : float) -> Vector3:
 	var move_forward = Input.get_action_strength(\"go_front\") - Input.get_action_strength(\"go_back\")
 	var move_left = Input.get_action_strength(\"go_left\") - Input.get_action_strength(\"go_right\")
-	var forward = transform.basis.x.cross(_up)
+	var move_up = Input.get_action_strength(\"go_up\") - Input.get_action_strength(\"go_down\") if _is_floating else 0.0
+	var forward_axis = transform.basis.x.cross(up)
+	var left_axis = up.cross(forward_axis)
 	
-	var rotation_basis = Basis(transform.basis.x, _up, forward).orthonormalized()
-	var new_direction = rotation_basis * Vector3(move_left, 0, move_forward)
+	var rotation_basis = Basis(left_axis, up, forward_axis).orthonormalized()
+	var raw_input = Vector3(move_left, move_up, move_forward).normalized()
+	var new_direction = rotation_basis * raw_input
 	
-	if new_direction.length() > 0.2:
-		print(\"dot2: \" + str(new_direction.dot(transform.basis.z)))
-		var new_rotation_basis = Basis(_up.cross(new_direction), _up, new_direction).orthonormalized()
-		transform.basis.slerp(new_rotation_basis, delta * rotation_speed * local_gravity_scale)
-	elif forward.dot(transform.basis.z) < 0.90 :
-		print(\"dot: \" + str(forward.dot(transform.basis.z)))
-		transform.basis.slerp(rotation_basis, delta * rotation_speed * local_gravity_scale)
+	if raw_input.length() > 0.2 and abs(up.dot(new_direction)) < 0.98:
+		var new_rotation_basis = Basis(up.cross(new_direction), up, new_direction).orthonormalized()
+		transform.basis.slerp(new_rotation_basis, maxf(delta * _rotation_speed, 1))
+	elif forward_axis.dot(transform.basis.z) < 0.90 :
+		transform.basis.slerp(rotation_basis, maxf(delta * _rotation_speed, 1))
 	
 	return new_direction
-
-
-func _orient_character_to_direction(direction : Vector3, up : Vector3, delta : float) -> void:
-	if is_equal_approx(direction.length(), 0):
-		return
-	var left_axis := up.cross(direction)
-	var rotation_basis := Basis(left_axis, up, direction).orthonormalized()
-#	transform.basis = Basis(
-#		transform.basis.get_rotation_quaternion().slerp(
-#			rotation_basis.get_rotation_quaternion(), delta * rotation_speed)
-#		).orthonormalized()
-
-#	var quat := transform.basis.get_rotation_quaternion()
-#	var quat2 := rotation_basis.get_rotation_quaternion()
-#	var finalQuat := quat.slerp(quat2, delta * rotation_speed)
-#	var finalBasis := Basis(finalQuat)
-#	finalBasis = finalBasis.orthonormalized()
-#	transform.basis = finalBasis
-
-	transform.basis.slerp(rotation_basis, delta * rotation_speed)
-
-
-func choosePlanet(candidate : Node3D, current) -> Node3D:
-	var distCandidate = candidate.position.distance_squared_to(position) if candidate else INF
-	var distCurrent = current.position.distance_squared_to(position) if current else INF
-	return current if distCurrent <= distCandidate else candidate
 "
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xa7to"]
@@ -185,8 +113,8 @@ margin = 0.2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
 current = true
 
-[node name="HingeLilGuyXLoad" type="HingeJoint3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+[node name="HingeLilGuyYLoad" type="HingeJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 node_a = NodePath("../LilGuy")
 node_b = NodePath("../Load")
 angular_limit/enable = true
