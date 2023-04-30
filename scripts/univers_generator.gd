@@ -9,22 +9,26 @@ var iceTexture = preload("res://materials/iceBallMat.tres")
 var lifeTexture = preload("res://materials/lifeBallMat.tres")
 
 var textureArray = [dustTexture,iceTexture,lifeTexture]
-
-#TODO : Expose variables
-var rng_seed : int = 0
-var radius : int = 15 
-var tinyPlanetsNumber : int = 15
-var mediumPlanetsNumber : int = 5
-var bigPlanetsNumber : int = 2
-var interplanetaryMinDistance: int = 5
-var rng = RandomNumberGenerator.new()
 var planetArray: Array[Node3D]
+var rng
+
+@onready var radius = ProjectSettings.get_setting("specific/univers_generator/univers_radius", 0)
+@onready var tinyPlanetsNumber = ProjectSettings.get_setting("specific/univers_generator/tiny_planet_numbers", 0)
+@onready var mediumPlanetsNumber = ProjectSettings.get_setting("specific/univers_generator/medium_planet_numbers", 0)
+@onready var bigPlanetsNumber = ProjectSettings.get_setting("specific/univers_generator/big_radius", 0)
+@onready var interplanetaryMinDistance = ProjectSettings.get_setting("specific/univers_generator/interplanetary_min_distance", 0)
+@onready var tinyPlanetsSize = ProjectSettings.get_setting("specific/univers_generator/tiny_planet_size", 0)
+@onready var mediumPlanetsSize = ProjectSettings.get_setting("specific/univers_generator/medium_planet_size", 0)
+@onready var bigPlanetsSize = ProjectSettings.get_setting("specific/univers_generator/big_planet_size", 0)
+
+
 
 func _init() -> void:
-	rng.set_seed(rng_seed)
+	pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	rng = Global._rng
 	# Feed the planetArray. Sun and big planets before smaller
 	createSun(generateValidPosition(radius/2.0))
 	for planetIndex in bigPlanetsNumber:
@@ -60,21 +64,21 @@ func isValidPosition(pPosition : Vector3, pDistanceMinToCenter := 0.0) -> bool:
 	return true
 	
 func createTinyPlanet(pPosition : Vector3) -> void : 
-	var planet = instantiatePlanet(1)
-	planet.set_position(pPosition)
-	
-func createMediumPlanet(pPosition : Vector3) -> void : 
 	var planet = instantiatePlanet(3)
 	planet.set_position(pPosition)
 	
+func createMediumPlanet(pPosition : Vector3) -> void : 
+	var planet = instantiatePlanet(8)
+	planet.set_position(pPosition)
+	
 func createBigPlanet(pPosition : Vector3) -> void : 
-	var planet = instantiatePlanet(6)
+	var planet = instantiatePlanet(12)
 	planet.generateFacilities(3)
 	planet.set_position(pPosition)
 	
 func createSun(pPosition : Vector3) -> void :
 	# TODO : instantiate a sun node.
-	var planet = instantiateSun(6)
+	var planet = instantiateSun(8)
 	var sunMesh = planet.get_child(0)
 	# TODO : Change material and shadow behavior directly in the sun scene
 	sunMesh.set_cast_shadows_setting(MeshInstance3D.SHADOW_CASTING_SETTING_OFF)

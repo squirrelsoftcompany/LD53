@@ -2,18 +2,19 @@ extends Node3D
 
 
 @export_range(0, 100) var radius = 1
-var rng = RandomNumberGenerator.new()
 var facilitiesArray: Array[Node3D]
+var rng
 
 @onready var gravity_area = $%GravityArea
 @onready var gravity_shape = $%GravityShape
 
 
 func _init() -> void:
-	rng.set_seed(10)
+	pass
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	rng = Global._rng
 	# planet radius
 	scale = Vector3.ONE * radius*2
 	gravity_area.gravity_point_unit_distance = radius

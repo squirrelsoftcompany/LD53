@@ -24,11 +24,14 @@ var _current_scene: Node = null
 var _is_gameover := false
 var _main_menu := preload("res://levels/ui/MainMenu.tscn")
 var _world := preload("res://levels/World.tscn")
+var _rng = RandomNumberGenerator.new()
+var rng_seed : int = 0
 
 
 func _ready() -> void:
 	var root = get_tree().get_root()
 	_current_scene = root.get_child(1)
+	_rng.set_seed(rng_seed)
 
 
 func goto_world() -> void:
