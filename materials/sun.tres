@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=4 format=3 uid="uid://x4fq38gdiapv"]
+[gd_resource type="VisualShader" load_steps=4 format=3 uid="uid://cb5utrxt6mgrp"]
 
 [sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_bcf18"]
 output_port_for_preview = 0
