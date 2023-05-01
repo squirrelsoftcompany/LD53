@@ -9,7 +9,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	look_at(camera.global_transform.origin)
 	var dist = camera.global_transform.origin.distance_to(self.global_position)/15
 	dist = pow(dist,0.8)
