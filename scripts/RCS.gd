@@ -16,7 +16,7 @@ func _process(_delta):
 	move.y += Input.get_action_strength("go_down")
 	move.y += -1*(Input.get_action_strength("go_up"))
 	$"../../Load/engines".position.z = move.z/5
-	if move.distance_to(Vector3(0,0,0)):
+	if not move.distance_to(Vector3(0,0,0)):
 		move = to_global(move)
 	$RCS.process_material.set("shader_parameter/forceX",move.x)
 	$RCS.process_material.set("shader_parameter/forceY",move.y)
