@@ -27,6 +27,7 @@ func _process(delta: float) -> void:
 	if Global.global_time <= 12 or Global.delivery_time <= 12:
 		if not _timer_audio_stream.playing:
 			_timer_audio_stream.play()
+			_timer_audio_stream.seek(12 - min(Global.global_time, Global.delivery_time))
 
 
 func _on_gameover_dead() -> void:
@@ -51,6 +52,7 @@ func _on_delivery_timeout() -> void:
 func _on_delivery_ok() -> void:
 	_delivery_ok_audio_stream.play()
 	Global.delivery_time = 30.0
+	_timer_audio_stream.stop()
 	if Global.delivery_count == Global.delivery_total:
 		_victory_audio_stream.play()
 		_hud.gameover("Congratulation: All deliveries are completed for today")
