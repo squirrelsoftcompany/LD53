@@ -1,0 +1,28 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bk0wnm4wo02q8"]
+
+[ext_resource type="Shader" uid="uid://3pl6nycryvod" path="res://materials/sunBallShader.tres" id="1_d83bk"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p6api"]
+noise_type = 4
+frequency = 0.076
+fractal_type = 3
+fractal_octaves = 3
+fractal_lacunarity = 2.182
+fractal_gain = 0.333
+fractal_weighted_strength = 0.13
+fractal_ping_pong_strength = 1.494
+cellular_distance_function = 3
+cellular_jitter = 1.723
+cellular_return_type = 6
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d6u3k"]
+seamless = true
+seamless_blend_skirt = 0.22
+noise = SubResource("FastNoiseLite_p6api")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_d83bk")
+shader_parameter/Secundary_Color = Color(0.772549, 0.168627, 0.0627451, 1)
+shader_parameter/Main_Color = Color(0.52549, 0.329412, 0.0627451, 1)
+shader_parameter/tex_frg_2 = SubResource("NoiseTexture2D_d6u3k")
