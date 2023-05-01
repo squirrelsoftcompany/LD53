@@ -15,12 +15,16 @@ var _delivery_points := 0
 
 func _process(_delta: float) -> void:
 	if not get_tree().paused:
-		_delivery_count.text = "Delivery " + str(Global.delivery_count) + "/" + str(Global.delivery_total)
-		_delivery_timer.text = "(" + str(ceil(Global.delivery_time)) + ")"
-		var second = int(ceil(Global.global_time)) % 60
-		var minute = (int(ceil(Global.global_time)) - second) / 60.0
-		_global_timer.text = "Remaining time " + str(minute) + ":" + str(second)
-		_points_label.text = "Points " + str(int(ceil(Global.global_time)) + Global.points)
+		draw()
+
+
+func draw() -> void:
+	_delivery_count.text = "Delivery " + str(Global.delivery_count) + "/" + str(Global.delivery_total)
+	_delivery_timer.text = "(" + str(ceil(Global.delivery_time)) + ")"
+	var second = int(ceil(Global.global_time)) % 60
+	var minute = (int(ceil(Global.global_time)) - second) / 60.0
+	_global_timer.text = "Remaining time " + str(minute) + ":" + str(second)
+	_points_label.text = "Points " + str(int(ceil(Global.global_time)) + Global.points)
 
 
 func _input(event: InputEvent) -> void:
@@ -31,6 +35,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_main_menu_pressed() -> void:
+	draw()
 	_gameover_data.visible = false
 	_game_menu.visible = false
 	Global.play_validate()
@@ -38,6 +43,7 @@ func _on_main_menu_pressed() -> void:
 
 
 func _on_restart_pressed() -> void:
+	draw()
 	_gameover_data.visible = false
 	_game_menu.visible = false
 	Global.play_validate()
@@ -45,11 +51,13 @@ func _on_restart_pressed() -> void:
 
 
 func _on_quit_pressed() -> void:
+	draw()
 	Global.play_validate()
 	get_tree().quit()
 
 
 func gameover(why: String) -> void:
+	draw()
 	get_tree().paused = true
 	Engine.time_scale = 0.0
 	_game_menu.visible = true
