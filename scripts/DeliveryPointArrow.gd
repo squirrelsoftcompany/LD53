@@ -41,6 +41,5 @@ func _process(_delta: float) -> void:
 func _on_new_delivery_point(node : Node3D) -> void:
 	if node:
 		target_3d_position = node.global_position
-		print(target_3d_position)
 	else:
 		target_3d_position = Vector3.INF
