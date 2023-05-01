@@ -6,13 +6,15 @@ var facilitiesArray: Array[Node3D]
 var punchableArray: Array[Node3D]
 var rng
 
+
 @onready var gravity_area = $%GravityArea
 @onready var gravity_shape = $%GravityShape
 
 
 func _init() -> void:
 	pass
-	
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	rng = Global._rng
@@ -35,12 +37,14 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+
 func generateFacilities(pCount: int) -> void:
 	var facilityGeneratedCount : int = 0
+	@warning_ignore("unused_variable")
 	var punchableCount : int = 0
 	var deliveryZoneCount : int = 0
 	var isPunchable = false
-	
+
 	# A bit complexe way to dispatch delivary zones and punchable stuff but it should works as expected (too lazy to rework the algo)
 	if pCount == 1:
 		var flipcoin = rng.randi_range(0,1)
@@ -53,7 +57,7 @@ func generateFacilities(pCount: int) -> void:
 		deliveryZoneCount = pCount/2 + pCount%2
 		@warning_ignore("integer_division")
 		punchableCount = pCount/2
-	
+
 	while facilityGeneratedCount < pCount:
 		var facilityInstance
 		if deliveryZoneCount > 0 :
@@ -85,6 +89,7 @@ func generateFacilities(pCount: int) -> void:
 
 		# If it's a punchable stuff we have to detach the facilityInstance from the planet  
 		if isPunchable :
+			@warning_ignore("unused_variable")
 			var savedGlobalTranform = facilityInstance.get_global_transform()
 #			var grandParent = facilityInstance.get_parent().get_parent()
 #			facilityInstance.get_parent().remove_child(facilityInstance)
@@ -94,9 +99,8 @@ func generateFacilities(pCount: int) -> void:
 			facilitiesArray.push_back(facilityInstance)
 			
 		facilityGeneratedCount = facilityGeneratedCount + 1
-		
-		
-		
+
+
 func randomDeliveryZoneSelection() -> Node3D:
 	var newDeliveryZone : Node3D = null
 	while !newDeliveryZone:
@@ -108,7 +112,8 @@ func randomDeliveryZoneSelection() -> Node3D:
 				continue
 		newDeliveryZone = deliveryZoneInstance
 	return newDeliveryZone
-	
+
+
 func randomPunchableSelection() -> Node3D:
 	var newPunchable : Node3D = null
 	while !newPunchable:
@@ -116,7 +121,8 @@ func randomPunchableSelection() -> Node3D:
 		var punchableInstance = Global.globalPunchableAssetArray[index].instantiate()
 		newPunchable = punchableInstance
 	return newPunchable
-	
+
+
 func generatePolarVector() -> Vector3:
 	var generatedPosition = Vector3(rng.randf_range(-1,1),rng.randf_range(-1,1),rng.randf_range(-1,1))
 	while generatedPosition == Vector3(0,0,0):
