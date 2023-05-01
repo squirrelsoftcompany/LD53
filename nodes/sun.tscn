@@ -9,6 +9,6 @@
 surface_material_override/0 = ExtResource("2_h3g0g")
 
 [node name="SunLight" type="OmniLight3D" parent="." index="3"]
-light_energy = 10.0
+light_energy = 5.0
 omni_range = 1000.0
 omni_attenuation = 0.5

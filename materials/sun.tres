@@ -9,7 +9,7 @@ output_port_for_preview = 0
 operator = 2
 
 [sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_ctq7s"]
-constant = 0.8
+constant = 0.2
 
 [resource]
 code = "shader_type spatial;
@@ -22,7 +22,7 @@ void fragment() {
 
 
 // FloatConstant:5
-	float n_out5p0 = 0.800000;
+	float n_out5p0 = 0.200000;
 
 
 // VectorOp:4
@@ -36,7 +36,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-383.647, -134.768)
+graph_offset = Vector2(-514.273, -91.9091)
 nodes/fragment/0/position = Vector2(440, 60)
 nodes/fragment/2/node = SubResource("VisualShaderNodeColorConstant_bcf18")
 nodes/fragment/2/position = Vector2(-240, 60)
@@ -44,4 +44,4 @@ nodes/fragment/4/node = SubResource("VisualShaderNodeVectorOp_0kpai")
 nodes/fragment/4/position = Vector2(80, 280)
 nodes/fragment/5/node = SubResource("VisualShaderNodeFloatConstant_ctq7s")
 nodes/fragment/5/position = Vector2(-360, 500)
-nodes/fragment/connections = PackedInt32Array(2, 0, 4, 0, 5, 0, 4, 1, 4, 0, 0, 5, 2, 0, 0, 0)
+nodes/fragment/connections = PackedInt32Array(2, 0, 4, 0, 5, 0, 4, 1, 2, 0, 0, 0, 4, 0, 0, 5)
