@@ -3,6 +3,7 @@ extends Node3D
 
 @export_range(0, 100) var radius = 1
 var facilitiesArray: Array[Node3D]
+var punchableArray: Array[Node3D]
 var rng
 
 @onready var gravity_area = $%GravityArea
@@ -34,23 +35,46 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-
 func generateFacilities(pCount: int) -> void:
 	var facilityGeneratedCount : int = 0
+	var punchableCount : int = 0
+	var deliveryZoneCount : int = 0
+	var isPunchable = false
+	
+	# A bit complexe way to dispatch delivary zones and punchable stuff but it should works as expected (too lazy to rework the algo)
+	if pCount == 1:
+		var flipcoin = rng.randi_range(0,1)
+		if flipcoin:
+			deliveryZoneCount = 1
+		else:
+			punchableCount = 1
+	else:
+		@warning_ignore("integer_division")
+		deliveryZoneCount = pCount/2 + pCount%2
+		@warning_ignore("integer_division")
+		punchableCount = pCount/2
+	
 	while facilityGeneratedCount < pCount:
-
-		# Real implemantation, waiting for facilities
-		var facilityInstance = randomFacilitySelection()
-		add_child(facilityInstance)
+		var facilityInstance
+		if deliveryZoneCount > 0 :
+			facilityInstance = randomDeliveryZoneSelection()
+			deliveryZoneCount -= 1
+		else:
+			facilityInstance = randomPunchableSelection()
+			isPunchable = true
+			punchableCount -= 1
 		
+		add_child(facilityInstance)
 		var validPosition = false
 		var radialVector
-		while (!validPosition):
+		var maxTryCount = 10 #Stop trying after too much tries. Safer considering the random generation.
+		while (!validPosition) and maxTryCount > 0:
 			validPosition = true
 			radialVector = generatePolarVector() * 0.5
 			for facility in facilitiesArray:
-				if radialVector.distance_to(facility.position) < 0.8 or radialVector.cross(Vector3.RIGHT) == Vector3.ZERO:
+				if radialVector.distance_to(facility.position) < 0.2 or radialVector.cross(Vector3.RIGHT) == Vector3.ZERO:
 					validPosition = false
+					maxTryCount -= 1
 		
 		var rotateBasis = Basis(Vector3.LEFT, PI/2)
 		var base = facilityInstance.global_transform.basis.looking_at(radialVector.normalized(),Vector3.RIGHT)
@@ -58,21 +82,40 @@ func generateFacilities(pCount: int) -> void:
 		
 		facilityInstance.set_position(radialVector)
 		facilityInstance.scale = Vector3.ONE/(radius*2)
-		
-		facilitiesArray.push_back(facilityInstance)
+
+		# If it's a punchable stuff we have to detach the facilityInstance from the planet  
+		if isPunchable :
+			var savedGlobalTranform = facilityInstance.get_global_transform()
+#			var grandParent = facilityInstance.get_parent().get_parent()
+#			facilityInstance.get_parent().remove_child(facilityInstance)
+#			grandParent.add_child(facilityInstance)
+#			facilityInstance.set_global_transform(savedGlobalTranform)
+		else :
+			facilitiesArray.push_back(facilityInstance)
+			
 		facilityGeneratedCount = facilityGeneratedCount + 1
 		
-func randomFacilitySelection() -> Node3D:
-	var newFacility : Node3D = null
-	while !newFacility:
-		var index = rng.randi_range(0,Global._globalFacilitiesAssetArray.size()-1)
-		var facilityInstance = Global._globalFacilitiesAssetArray[index].instantiate()
+		
+		
+func randomDeliveryZoneSelection() -> Node3D:
+	var newDeliveryZone : Node3D = null
+	while !newDeliveryZone:
+		var index = rng.randi_range(0,Global.globalDeliveryZoneAssetArray.size()-1)
+		var deliveryZoneInstance = Global.globalDeliveryZoneAssetArray[index].instantiate()
 		# Small planet can only used small facility
 		if radius == ProjectSettings.get_setting("specific/univers_generator/tiny_planet_size", 0):
-			if facilityInstance.get_meta("size") > 1:
+			if deliveryZoneInstance.get_meta("size") > 1:
 				continue
-		newFacility = facilityInstance
-	return newFacility
+		newDeliveryZone = deliveryZoneInstance
+	return newDeliveryZone
+	
+func randomPunchableSelection() -> Node3D:
+	var newPunchable : Node3D = null
+	while !newPunchable:
+		var index = rng.randi_range(0,Global.globalPunchableAssetArray.size()-1)
+		var punchableInstance = Global.globalPunchableAssetArray[index].instantiate()
+		newPunchable = punchableInstance
+	return newPunchable
 	
 func generatePolarVector() -> Vector3:
 	var generatedPosition = Vector3(rng.randf_range(-1,1),rng.randf_range(-1,1),rng.randf_range(-1,1))

@@ -9,8 +9,9 @@ size = Vector3(3.51853, 5.73518, 0.815963)
 [node name="AdPanel" instance=ExtResource("1_pkmt5")]
 
 [node name="CollisionShape3D" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.00287, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.5, 0)
 shape = SubResource("BoxShape3D_kw83n")
 
 [node name="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = ExtResource("2_2whkb")

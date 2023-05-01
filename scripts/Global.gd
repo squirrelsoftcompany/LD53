@@ -31,16 +31,19 @@ var _is_gameover := false
 var _main_menu := preload("res://levels/ui/MainMenu.tscn")
 var _world := preload("res://levels/World.tscn")
 var _rng = RandomNumberGenerator.new()
-var rng_seed : int = 0
+var rng_seed : int = randi()
 
-#Facilities loading
-var facility_1 := preload("res://nodes/buildings/2_lvl_square.tscn")
-var facility_2 := preload("res://nodes/buildings/3_lvl_square.tscn")
-var facility_3 := preload("res://nodes/buildings/small/dumpster.tscn")
-var facility_4 := preload("res://nodes/buildings/small/locker.tscn")
-var facility_5 := preload("res://nodes/buildings/small/mail_box.tscn")
-@warning_ignore("unused_private_class_variable")
-var _globalFacilitiesAssetArray = [facility_1,facility_2,facility_3,facility_4,facility_5]
+#Delivery zones loading
+var deliveryZone_1 := preload("res://nodes/buildings/2_lvl_square.tscn")
+var deliveryZone_2 := preload("res://nodes/buildings/3_lvl_square.tscn")
+var deliveryZone_3 := preload("res://nodes/buildings/small/dumpster.tscn")
+var deliveryZone_4 := preload("res://nodes/buildings/small/locker.tscn")
+var deliveryZone_5 := preload("res://nodes/buildings/small/mail_box.tscn")
+var globalDeliveryZoneAssetArray = [deliveryZone_1,deliveryZone_2,deliveryZone_3,deliveryZone_4,deliveryZone_5]
+#Punchable loading
+var punchable_1 := preload("res://nodes/punchable/ad_panel.tscn")
+var punchable_2 := preload("res://nodes/punchable/bin.tscn")
+var globalPunchableAssetArray = [punchable_1,punchable_2,]
 
 
 func play_validate() -> void:
