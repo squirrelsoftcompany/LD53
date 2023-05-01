@@ -70,5 +70,5 @@ func _on_new_delivery_point(delivery_point: Node3D) -> void:
 
 
 func compute_current_delivery_time(delivery_point: Node3D) -> float:
-	var caracter:Node3D = _univers.get_caracter()
+	var caracter:Node3D = _univers.get_character()
 	return sqrt(delivery_point.global_position.distance_to(caracter.global_position)) * 2.5
