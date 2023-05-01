@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://d07dfv35tvjxx"]
+
+[ext_resource type="PackedScene" uid="uid://7i58x61qk11w" path="res://nodes/standardAsteroid.tscn" id="1_m7kd7"]
+[ext_resource type="ArrayMesh" uid="uid://dgsa1tnyjoj3g" path="res://models/Asteroid3.obj" id="2_aalbw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1fsqi"]
+radius = 11.1892
+
+[node name="asteroidC" instance=ExtResource("1_m7kd7")]
+
+[node name="MeshInstance3D" parent="." index="0"]
+mesh = ExtResource("2_aalbw")
+
+[node name="CollisionShape3D" parent="." index="1"]
+shape = SubResource("SphereShape3D_1fsqi")

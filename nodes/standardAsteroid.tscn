@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://7i58x61qk11w"]
+
+[ext_resource type="Material" uid="uid://rto7ihpsdxj" path="res://materials/asteroidBallMat.tres" id="1_7gn5d"]
+
+[node name="StaticBody3D" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_7gn5d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]

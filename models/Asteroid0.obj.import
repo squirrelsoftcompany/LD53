@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://baely53tm3tsg"
+path="res://.godot/imported/Asteroid0.obj-965bf7facec1ba9b79e393a5c87eea01.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Asteroid0.obj-965bf7facec1ba9b79e393a5c87eea01.mesh"]
+
+source_file="res://models/Asteroid0.obj"
+dest_files=["res://.godot/imported/Asteroid0.obj-965bf7facec1ba9b79e393a5c87eea01.mesh", "res://.godot/imported/Asteroid0.obj-965bf7facec1ba9b79e393a5c87eea01.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://rto7ihpsdxj"]
+
+[ext_resource type="Shader" uid="uid://dm1hiccu16s5h" path="res://materials/planetBallShader.tres" id="1_cxiap"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mxr4v"]
+frequency = 0.02
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_od12q"]
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_mxr4v")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_cxiap")
+shader_parameter/Secundary_Color = Color(0, 0, 0, 1)
+shader_parameter/Main_Color = Color(0.184314, 0.184314, 0.184314, 1)
+shader_parameter/tex_frg_2 = SubResource("NoiseTexture2D_od12q")
