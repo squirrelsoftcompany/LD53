@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bod7h2ewook7h"]
+[gd_scene load_steps=12 format=3 uid="uid://c05andrh8r0ya"]
 
 [ext_resource type="Script" path="res://levels/World.gd" id="1_kb4rl"]
 [ext_resource type="PackedScene" uid="uid://ox1vxfdy4xrc" path="res://levels/Univers.tscn" id="2_qs2mn"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://dxd6k8f5xw1nm" path="res://audio/timer.wav" id="6_57yhp"]
 [ext_resource type="AudioStream" uid="uid://coabxvkcuibss" path="res://audio/victory.wav" id="7_oyry7"]
 [ext_resource type="PackedScene" path="res://nodes/ui/DeliveryPointArrow.tscn" id="9_u8m1l"]
+[ext_resource type="PackedScene" uid="uid://bbfvlwm371ek1" path="res://nodes/WorldBoundary.tscn" id="11_g4u43"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_kb4rl")
@@ -50,3 +51,5 @@ autoplay = true
 bus = &"Music"
 
 [node name="DeliveryPointArrow" parent="." instance=ExtResource("9_u8m1l")]
+
+[node name="WorldBoundaries" parent="." instance=ExtResource("11_g4u43")]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbfvlwm371ek1"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_s35sd"]
+plane = Plane(0, 1, 0, -160)
+
+[node name="WorldBoundaries" type="StaticBody3D"]
+collision_layer = 255
+collision_mask = 255
+
+[node name="ShapeY+" type="CollisionShape3D" parent="."]
+shape = SubResource("WorldBoundaryShape3D_s35sd")
+
+[node name="ShapeY-" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_s35sd")
+
+[node name="ShapeX+" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_s35sd")
+
+[node name="ShapeX-" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_s35sd")
+
+[node name="ShapeZ+" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_s35sd")
+
+[node name="ShapeZ-" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_s35sd")
