@@ -70,6 +70,7 @@ go_down={
 3d_physics/layer_1="Planets"
 3d_physics/layer_2="Character"
 3d_physics/layer_3="CameraArm"
+3d_physics/layer_4="Asteroids"
 
 [physics]
 
@@ -98,3 +99,4 @@ univers_generator/interplanetary_min_distance=30
 univers_generator/tiny_planet_size=3
 univers_generator/medium_planet_size=9
 univers_generator/big_planet_size=12
+univers_generator/asteroids_numbers=100

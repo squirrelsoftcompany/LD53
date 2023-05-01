@@ -9,15 +9,17 @@ height = 28.883
 
 [node name="asteroidB" type="RigidBody3D"]
 collision_layer = 8
-collision_mask = 8
+collision_mask = 15
 mass = 1000.0
+gravity_scale = 2.66454e-15
 can_sleep = false
 linear_damp_mode = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 material_override = ExtResource("1_vj13c")
 mesh = ExtResource("2_rskka")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.112508, 0.97238, 0.204496, -0.993373, 0.114937, 0, -0.0235042, -0.203141, 0.978867, -0.088, -0.201, 0.325)
+transform = Transform3D(0.056254, 0.48619, 0.102248, -0.496686, 0.0574685, -1.26274e-08, -0.0117521, -0.101571, 0.489434, -0.088, -0.201, 0.325)
 shape = SubResource("CapsuleShape3D_6gc8q")
