@@ -24,6 +24,8 @@ var global_time := 0.0:
 			timeout()
 var current_delivery_point : Node3D = null
 
+var _global_stream_player := AudioStreamPlayer.new()
+var _validate_sound := preload("res://audio/select.wav")
 var _current_scene: Node = null
 var _is_gameover := false
 var _main_menu := preload("res://levels/ui/MainMenu.tscn")
@@ -41,10 +43,22 @@ var facility_5 := preload("res://nodes/buildings/small/mail_box.tscn")
 var _globalFacilitiesAssetArray = [facility_1,facility_2,facility_3,facility_4,facility_5]
 
 
+func play_validate() -> void:
+	play_sound(_validate_sound)
+
+
+func play_sound(sound: AudioStream) -> void:
+	if not _global_stream_player.playing:
+		_global_stream_player.stream = sound
+		_global_stream_player.play()
+
+
 func _ready() -> void:
 	var root = get_tree().get_root()
 	_current_scene = root.get_child(1)
 	_rng.set_seed(rng_seed)
+	_global_stream_player.process_mode = PROCESS_MODE_ALWAYS
+	add_child(_global_stream_player)
 
 
 func goto_world() -> void:

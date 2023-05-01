@@ -28,16 +28,19 @@ func _input(event: InputEvent) -> void:
 func _on_main_menu_pressed() -> void:
 	_gameover_data.visible = false
 	_game_menu.visible = false
+	Global.play_validate()
 	Global.goto_main_menu()
 
 
 func _on_restart_pressed() -> void:
 	_gameover_data.visible = false
 	_game_menu.visible = false
+	Global.play_validate()
 	Global.goto_world()
 
 
 func _on_quit_pressed() -> void:
+	Global.play_validate()
 	get_tree().quit()
 
 
