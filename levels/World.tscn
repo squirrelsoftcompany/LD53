@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://bod7h2ewook7h"]
+[gd_scene load_steps=9 format=3 uid="uid://bod7h2ewook7h"]
 
 [ext_resource type="Script" path="res://levels/World.gd" id="1_kb4rl"]
 [ext_resource type="PackedScene" uid="uid://ox1vxfdy4xrc" path="res://levels/Univers.tscn" id="2_qs2mn"]
 [ext_resource type="PackedScene" uid="uid://ccyxjn27it1rx" path="res://levels/HUD.tscn" id="3_o4u7u"]
 [ext_resource type="AudioStream" uid="uid://bsf5lujmvvq45" path="res://audio/fail.mp3" id="4_8fmgy"]
 [ext_resource type="AudioStream" uid="uid://b6g8tnq0mqp4y" path="res://audio/sound_track_01.mp3" id="5_0iiyh"]
-[ext_resource type="PackedScene" uid="uid://cwo6q1yjwkeby" path="res://nodes/ui/DeliveryPointArrow.tscn" id="9_u8m1l"]
+[ext_resource type="AudioStream" uid="uid://ccuq5t2ltbki1" path="res://audio/delivery_ok.wav" id="5_nlj5c"]
+[ext_resource type="AudioStream" uid="uid://dxd6k8f5xw1nm" path="res://audio/timer.wav" id="6_57yhp"]
+[ext_resource type="PackedScene" path="res://nodes/ui/DeliveryPointArrow.tscn" id="9_u8m1l"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_kb4rl")
@@ -21,6 +23,7 @@ bus = &"SoundEffect"
 
 [node name="DeliveryOkAudioStream" type="AudioStreamPlayer" parent="."]
 process_mode = 3
+stream = ExtResource("5_nlj5c")
 bus = &"SoundEffect"
 
 [node name="CriticalFailureAudioStream" type="AudioStreamPlayer" parent="."]
@@ -33,6 +36,7 @@ bus = &"SoundEffect"
 
 [node name="TimerAudioStream" type="AudioStreamPlayer" parent="."]
 process_mode = 3
+stream = ExtResource("6_57yhp")
 bus = &"SoundEffect"
 
 [node name="DeliveryPointArrow" parent="." instance=ExtResource("9_u8m1l")]
