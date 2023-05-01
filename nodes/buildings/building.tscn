@@ -14,7 +14,8 @@ script/source = "extends StaticBody3D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_deliveryArea.connect(\"body_entered\", _on_body_entered)
-	disactivate()
+	if Global.current_delivery_point != self:
+		disactivate()
 
 
 func activate():
@@ -28,8 +29,7 @@ func disactivate():
 
 
 func _on_body_entered(body: Node3D) -> void:
-	print(body.name)
-	if body.is_in_group(\"CharacterBody\"): #and Global.current_delivery_point == self:
+	if body.is_in_group(\"CharacterBody\") and Global.current_delivery_point == self:
 		Global.delivery_success()
 "
 
