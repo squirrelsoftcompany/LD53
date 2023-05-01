@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5xqfv47y12ul"]
+[gd_scene load_steps=5 format=3 uid="uid://lcsikwvfkypk"]
 
 [ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="1_yboc3"]
 [ext_resource type="ArrayMesh" uid="uid://bp3p0rux7pop3" path="res://models/AdPanel.obj" id="2_cw8k6"]
@@ -33,20 +33,18 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 22
 theme_override_font_sizes/bold_font_size = 30
 bbcode_enabled = true
-text = "			[b]CONTROLS[/b]
+text = "
 
-	-In general
-		W/S => Forward/Backward
-		Q/D => Left/Right
+	           [b]CONTROLS[/b]
+		  Now with new flavours
 
-	-Near a planet
-		Caps => Down
-		Space => Jump
 
-	-In space
-		Caps => Nose down
-		Space => Nose Up
-____________________________________"
+	W/S		Forward/Backward
+	Q/D		Left/Right
+	SHIFT	Nose down
+	Space	Nose up OR
+				Jump out of gravity
+"
 scroll_active = false
 autowrap_mode = 0
 

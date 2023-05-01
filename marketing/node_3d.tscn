@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlcw210soqdnw"]
+[gd_scene load_steps=8 format=3 uid="uid://dlcw210soqdnw"]
 
 [ext_resource type="PackedScene" uid="uid://bdt32i7y653jp" path="res://nodes/EnvironementSkyBox.tscn" id="1_he4fa"]
 [ext_resource type="PackedScene" uid="uid://bncvpe8fneh3m" path="res://nodes/Hubert.tscn" id="2_ak0qr"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ci6tbg8y7bueo" path="res://nodes/buildings/small/locker.tscn" id="4_nrr7l"]
 [ext_resource type="PackedScene" uid="uid://bwfj4ttbrlbis" path="res://levels/ui/MainMenu.tscn" id="5_f6q8b"]
 [ext_resource type="PackedScene" uid="uid://gafc4xg6y8p4" path="res://nodes/sun.tscn" id="6_msnfv"]
+[ext_resource type="PackedScene" uid="uid://lcsikwvfkypk" path="res://nodes/ControlsTuto.tscn" id="7_d8b7g"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -19,6 +20,7 @@ transform = Transform3D(1.24202, 0, 1.5676, 0, 2, 0, -1.5676, 0, 1.24202, -13.71
 
 [node name="Locker" parent="." instance=ExtResource("4_nrr7l")]
 transform = Transform3D(-1.56543, 0, 1.24476, 0, 2, 0, -1.24476, 0, -1.56543, -8.1213, 0, -1.90827)
+visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.35726, -0.785499, 0.505328, -0.523397, 0.616473, 0.588232, -0.773577, -0.0543351, -0.631369, 5.20909, 0, -3.8824)
@@ -34,3 +36,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.444, 30, 40.102)
 radius = 9
 
 [node name="MainMenu" parent="." instance=ExtResource("5_f6q8b")]
+
+[node name="ControlsTuto" parent="." instance=ExtResource("7_d8b7g")]
+transform = Transform3D(-3.49691e-08, 0, 0.8, 0, 0.8, 0, -0.8, 0, -3.49691e-08, -7.5, 1, -2.5)

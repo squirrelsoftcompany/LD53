@@ -71,6 +71,7 @@ go_down={
 3d_physics/layer_2="Character"
 3d_physics/layer_3="CameraArm"
 3d_physics/layer_4="Asteroids"
+3d_physics/layer_5="WorldBoundary"
 
 [physics]
 
