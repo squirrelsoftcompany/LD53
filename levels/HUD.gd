@@ -63,4 +63,4 @@ func gameover(why: String) -> void:
 	_game_menu.visible = true
 	_gameover_data.visible = true
 	_game_over_label.text = why
-	_game_over_points_label.text = "Points : " + str(int(ceil(Global.global_time)) + Global.points)
+	_game_over_points_label.text = "Score : " + str(int(ceil(Global.global_time)) + Global.points)
