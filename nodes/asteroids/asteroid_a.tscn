@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=3 uid="uid://cvicvfexsv5fn"]
+[gd_scene load_steps=7 format=3 uid="uid://cvicvfexsv5fn"]
 
-[ext_resource type="PackedScene" uid="uid://7i58x61qk11w" path="res://nodes/standardAsteroid.tscn" id="1_dtqc3"]
 [ext_resource type="Shader" uid="uid://dm1hiccu16s5h" path="res://materials/planetBallShader.tres" id="2_k0k1k"]
 [ext_resource type="ArrayMesh" uid="uid://baely53tm3tsg" path="res://models/Asteroid0.obj" id="3_78w82"]
 
@@ -21,12 +20,17 @@ shader_parameter/tex_frg_2 = SubResource("NoiseTexture2D_od12q")
 radius = 3.68888
 height = 15.9376
 
-[node name="asteroidA" instance=ExtResource("1_dtqc3")]
+[node name="asteroidA" type="RigidBody3D"]
+collision_layer = 8
+collision_mask = 8
+mass = 1000.0
+can_sleep = false
+linear_damp_mode = 1
 
-[node name="MeshInstance3D" parent="." index="0"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_4ekp2")
 mesh = ExtResource("3_78w82")
 
-[node name="CollisionShape3D" parent="." index="1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_a2xw5")

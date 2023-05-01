@@ -15,7 +15,7 @@ script = ExtResource("1_fxocl")
 mesh = SubResource("SphereMesh_wxs20")
 
 [node name="CollisionBody" type="StaticBody3D" parent="."]
-collision_mask = 251
+collision_mask = 242
 axis_lock_linear_x = true
 axis_lock_linear_y = true
 axis_lock_linear_z = true

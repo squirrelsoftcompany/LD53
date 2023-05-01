@@ -4,6 +4,10 @@ class_name Univers
 var planetNode = preload("res://nodes/planet.tscn")
 var sunNode = preload("res://nodes/sun.tscn")
 
+var asteroid_a_node := preload("res://nodes/asteroids/asteroid_a.tscn")
+var asteroid_b_node := preload("res://nodes/asteroids/asteroid_b.tscn")
+var asteroid_c_node := preload("res://nodes/asteroids/asteroid_c.tscn")
+
 var dustTexture = preload("res://materials/dustBallMat.tres")
 var iceTexture = preload("res://materials/iceBallMat.tres")
 var lifeTexture = preload("res://materials/lifeBallMat.tres")
@@ -16,6 +20,7 @@ var rng
 @onready var tinyPlanetsNumber = ProjectSettings.get_setting("specific/univers_generator/tiny_planet_numbers", 0)
 @onready var mediumPlanetsNumber = ProjectSettings.get_setting("specific/univers_generator/medium_planet_numbers", 0)
 @onready var bigPlanetsNumber = ProjectSettings.get_setting("specific/univers_generator/big_planet_numbers", 0)
+@onready var asteroidsNumber = ProjectSettings.get_setting("specific/univers_generator/asteroids_numbers", 0)
 @onready var interplanetaryMinDistance = ProjectSettings.get_setting("specific/univers_generator/interplanetary_min_distance", 0)
 @onready var tinyPlanetsSize = ProjectSettings.get_setting("specific/univers_generator/tiny_planet_size", 0)
 @onready var mediumPlanetsSize = ProjectSettings.get_setting("specific/univers_generator/medium_planet_size", 0)
@@ -37,6 +42,8 @@ func _ready() -> void:
 		createMediumPlanet(generateValidPosition())
 	for planetIndex in tinyPlanetsNumber:
 		createTinyPlanet(generateValidPosition())
+	for asteroidIndex in asteroidsNumber:
+		createAsteroid(generateValidPosition())
 
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -77,7 +84,28 @@ func createBigPlanet(pPosition : Vector3) -> void :
 	var planet = instantiatePlanet(bigPlanetsSize)
 	planet.generateFacilities(3)
 	planet.set_position(pPosition)
-	
+
+func createAsteroid(pPosition : Vector3) -> void :
+	var asteroid = null
+	match(rng.randi_range(0,2)):
+		0:
+			asteroid = asteroid_a_node.instantiate()
+		1:
+			asteroid = asteroid_b_node.instantiate()
+		2:
+			asteroid = asteroid_c_node.instantiate()
+	asteroid.linear_velocity.x = rng.randi_range(-10,10)
+	asteroid.linear_velocity.y = rng.randi_range(-10,10)
+	asteroid.linear_velocity.z = rng.randi_range(-10,10)
+	asteroid.angular_velocity.x = rng.randi_range(-10,10)
+	asteroid.angular_velocity.y = rng.randi_range(-10,10)
+	asteroid.angular_velocity.z = rng.randi_range(-10,10)
+	asteroid.inertia.x = rng.randi_range(-0,10)
+	asteroid.inertia.y = rng.randi_range(-0,10)
+	asteroid.inertia.z = rng.randi_range(-0,10)
+	asteroid.set_position(pPosition)
+	add_child(asteroid)
+
 func createSun(pPosition : Vector3) -> void :
 	# TODO : instantiate a sun node.
 	var planet = instantiateSun(bigPlanetsSize)
