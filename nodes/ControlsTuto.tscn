@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5xqfv47y12ul"]
+
+[ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="1_yboc3"]
+[ext_resource type="ArrayMesh" uid="uid://bp3p0rux7pop3" path="res://models/AdPanel.obj" id="2_cw8k6"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_55lcq"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmcfx"]
+bg_color = Color(0.976471, 0.447059, 0.14902, 1)
+
+[node name="ControlsTuto" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.838, 0, 0, 0, 0.783, 0, 0, 0, 0.871, 0, 3.942, 0.275)
+texture = SubResource("ViewportTexture_55lcq")
+region_enabled = true
+region_rect = Rect2(-1, 3, 354, 437)
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+
+[node name="PanelContainer" type="PanelContainer" parent="Sprite3D/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gmcfx")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Sprite3D/SubViewport/PanelContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 22
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "			[b]CONTROLS[/b]
+
+	-In general
+		W/S => Forward/Backward
+		Q/D => Left/Right
+
+	-Near a planet
+		Caps => Down
+		Space => Jump
+
+	-In space
+		Caps => Nose down
+		Space => Nose Up
+____________________________________"
+scroll_active = false
+autowrap_mode = 0
+
+[node name="AdPanel" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_yboc3")
+mesh = ExtResource("2_cw8k6")
