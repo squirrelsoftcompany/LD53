@@ -10,8 +10,14 @@ size = Vector3(4.47627, 3.82324, 3.29819)
 metadata/size = 1
 
 [node name="CollisionShape3D" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.71231, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1, 0)
 shape = SubResource("BoxShape3D_ou0da")
 
 [node name="MeshInstance3D" parent="." index="1"]
 mesh = ExtResource("2_i14uq")
+
+[node name="DeliveryShape" parent="DeliveryArea" index="0"]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 1, 0)
+
+[node name="Torus" parent="DeliveryArea" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

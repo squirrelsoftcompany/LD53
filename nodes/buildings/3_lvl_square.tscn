@@ -17,4 +17,10 @@ shape = SubResource("BoxShape3D_cear5")
 mesh = ExtResource("2_ctph1")
 
 [node name="DeliveryArea" parent="." index="2"]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.5, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 3)
+
+[node name="DeliveryShape" parent="DeliveryArea" index="0"]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 1, 0)
+
+[node name="Torus" parent="DeliveryArea" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
