@@ -24,7 +24,7 @@ func draw() -> void:
 	var second = int(ceil(Global.global_time)) % 60
 	var minute = (int(ceil(Global.global_time)) - second) / 60.0
 	_global_timer.text = "Remaining time " + str(minute) + ":" + str(second)
-	_points_label.text = "Points " + str(int(ceil(Global.global_time)) + Global.points)
+	_points_label.text = "Score " + str(int(ceil(Global.global_time)) + Global.points)
 
 
 func _input(event: InputEvent) -> void:
