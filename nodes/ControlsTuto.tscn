@@ -1,25 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://lcsikwvfkypk"]
+[gd_scene load_steps=5 format=3 uid="uid://c4d0clfvivd1t"]
 
+[ext_resource type="Script" path="res://scripts/SubViewport.gd" id="1_oavnr"]
 [ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="1_yboc3"]
 [ext_resource type="ArrayMesh" uid="uid://bp3p0rux7pop3" path="res://models/AdPanel.obj" id="2_cw8k6"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_55lcq"]
-viewport_path = NodePath("Sprite3D/SubViewport")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmcfx"]
 bg_color = Color(0.976471, 0.447059, 0.14902, 1)
 
 [node name="ControlsTuto" type="Node3D"]
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.838, 0, 0, 0, 0.783, 0, 0, 0, 0.871, 0, 3.942, 0.275)
-texture = SubResource("ViewportTexture_55lcq")
-region_enabled = true
-region_rect = Rect2(-1, 3, 354, 437)
+[node name="SubViewport" type="SubViewport" parent="."]
+script = ExtResource("1_oavnr")
 
-[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
-
-[node name="PanelContainer" type="PanelContainer" parent="Sprite3D/SubViewport"]
+[node name="PanelContainer" type="PanelContainer" parent="SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -27,7 +20,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gmcfx")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Sprite3D/SubViewport/PanelContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport/PanelContainer"]
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 22
@@ -47,6 +40,12 @@ text = "
 "
 scroll_active = false
 autowrap_mode = 0
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+process_priority = 1000
+transform = Transform3D(0.838, 0, 0, 0, 0.783, 0, 0, 0, 0.871, 0, 3.942, 0.275)
+region_enabled = true
+region_rect = Rect2(-1, 3, 354, 437)
 
 [node name="AdPanel" type="MeshInstance3D" parent="."]
 material_override = ExtResource("1_yboc3")
