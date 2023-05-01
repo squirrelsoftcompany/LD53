@@ -112,10 +112,10 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 func compute_direction_and_rotate_towards(up : Vector3, delta : float) -> Vector3:
 	var move_forward = Input.get_action_strength(\"go_front\") - Input.get_action_strength(\"go_back\")
 	var move_left = Input.get_action_strength(\"go_left\") - Input.get_action_strength(\"go_right\")
-	var move_up = Input.get_action_strength(\"go_up\") - Input.get_action_strength(\"go_down\") if _is_floating and not _jumped else 0.0
+	var move_up = (Input.get_action_strength(\"go_up\") if _is_floating and not _jumped else 0.0) - Input.get_action_strength(\"go_down\")
 	var forward_axis = transform.basis.x.cross(up)
 	var left_axis = up.cross(forward_axis)
-	
+
 	var rotation_basis = Basis(left_axis, up, forward_axis).orthonormalized()
 	var raw_input = Vector3(move_left, move_up, move_forward).normalized()
 	var new_direction = rotation_basis * raw_input
@@ -127,7 +127,7 @@ func compute_direction_and_rotate_towards(up : Vector3, delta : float) -> Vector
 		transform.basis.slerp(new_rotation_basis, maxf(delta * _rotation_speed, 1))
 	elif forward_axis.dot(transform.basis.z) < 0.90 :
 		transform.basis.slerp(rotation_basis, maxf(delta * _rotation_speed, 1))
-	
+
 	return new_direction
 "
 
