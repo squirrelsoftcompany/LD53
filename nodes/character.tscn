@@ -41,7 +41,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not _is_floating:
+	if _is_grounded:
 		if event.is_action_pressed(\"go_up\"):
 			_jumped = true
 			_jump_audio_stream.stop()
@@ -51,6 +51,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_is_moving_sound_triggered = false
 			_move_audio_stream.stream = null
 			return
+		if event.is_action_released(\"go_up\"):
+			_jumped = false
 	
 	var move = Input.get_action_strength(\"go_back\")
 	move += Input.get_action_strength(\"go_front\")
@@ -109,7 +111,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 func compute_direction_and_rotate_towards(up : Vector3, delta : float) -> Vector3:
 	var move_forward = Input.get_action_strength(\"go_front\") - Input.get_action_strength(\"go_back\")
 	var move_left = Input.get_action_strength(\"go_left\") - Input.get_action_strength(\"go_right\")
-	var move_up = Input.get_action_strength(\"go_up\") - Input.get_action_strength(\"go_down\") if _is_floating else 0.0
+	var move_up = Input.get_action_strength(\"go_up\") - Input.get_action_strength(\"go_down\") if not _is_grounded and not _jumped else 0.0
 	var forward_axis = transform.basis.x.cross(up)
 	var left_axis = up.cross(forward_axis)
 	
