@@ -23,6 +23,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		_game_menu.visible = !_game_menu.visible
 		get_tree().paused = _game_menu.visible
+		Engine.time_scale = 0.0 if _game_menu.visible else 1.0
 
 
 func _on_main_menu_pressed() -> void:
@@ -46,6 +47,7 @@ func _on_quit_pressed() -> void:
 
 func gameover(why: String) -> void:
 	get_tree().paused = true
+	Engine.time_scale = 0.0
 	_game_menu.visible = true
 	_gameover_data.visible = true
 	_game_over_label.text = why

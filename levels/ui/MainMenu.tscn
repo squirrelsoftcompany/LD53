@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://levels/ui/MainMenu.gd" id="1_skpo4"]
 
 [node name="MainMenu" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,17 +14,32 @@ script = ExtResource("1_skpo4")
 
 [node name="ButtonsContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 4
 anchor_top = 0.5
-anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -179.0
-offset_top = -33.0
-offset_right = 179.0
-offset_bottom = 33.0
-grow_horizontal = 2
+offset_left = 100.0
+offset_top = -203.0
+offset_right = 458.0
+offset_bottom = 17.0
 grow_vertical = 2
+alignment = 1
+
+[node name="Panel" type="PanelContainer" parent="ButtonsContainer"]
+self_modulate = Color(1, 1, 1, 0.627451)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ButtonsContainer/Panel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "HUBERT'S SPACE RICKSHAW"
+horizontal_alignment = 1
+autowrap_mode = 3
+uppercase = true
+
+[node name="Control" type="Control" parent="ButtonsContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
 
 [node name="NewGame" type="Button" parent="ButtonsContainer"]
 layout_mode = 2

@@ -11,8 +11,10 @@ config_version=5
 [application]
 
 config/name="LD53"
-run/main_scene="res://levels/ui/MainMenu.tscn"
+run/main_scene="res://marketing/node_3d.tscn"
 config/features=PackedStringArray("4.0", "Mobile")
+boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
+boot_splash/image="res://marketing/Icon144.PNG"
 config/icon="res://icon.svg"
 
 [autoload]
@@ -21,6 +23,7 @@ Global="*res://scripts/Global.gd"
 
 [display]
 
+window/stretch/mode="canvas_items"
 window/dpi/allow_hidpi=false
 
 [input]

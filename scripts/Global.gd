@@ -99,6 +99,7 @@ func _deferred_goto_scene(scene: Resource) -> void:
 func reinit() -> void:
 	_is_gameover = false
 	get_tree().paused = false
+	Engine.time_scale = 1.0
 	current_delivery_point = null
 	_select_next_delivery_point()
 
