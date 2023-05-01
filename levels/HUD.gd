@@ -1,8 +1,6 @@
 extends CanvasLayer
 
 
-var _delivery_points := 0
-
 @onready var _delivery_count := $HUDContainer/DeliveryInfoContainer/DeliveryCount
 @onready var _delivery_timer := $HUDContainer/DeliveryInfoContainer/DeliveryTimer
 @onready var _global_timer := $HUDContainer/InfoContainer/GlobalTimer

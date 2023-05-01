@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://d07dfv35tvjxx"]
+[gd_scene load_steps=5 format=3 uid="uid://d07dfv35tvjxx"]
 
 [ext_resource type="Material" uid="uid://rto7ihpsdxj" path="res://materials/asteroidBallMat.tres" id="1_4vrvs"]
+[ext_resource type="PhysicsMaterial" uid="uid://p4g3j5grrh8p" path="res://materials/asteroid_bouncy_physics.tres" id="1_mnas0"]
 [ext_resource type="ArrayMesh" uid="uid://dgsa1tnyjoj3g" path="res://models/Asteroid3.obj" id="2_aalbw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1fsqi"]
@@ -9,7 +10,8 @@ radius = 11.1892
 [node name="asteroidC" type="RigidBody3D"]
 collision_layer = 8
 collision_mask = 15
-mass = 1000.0
+mass = 10000.0
+physics_material_override = ExtResource("1_mnas0")
 gravity_scale = 2.66454e-15
 can_sleep = false
 linear_damp_mode = 1

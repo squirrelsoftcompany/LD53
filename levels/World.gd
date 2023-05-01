@@ -44,17 +44,15 @@ func _on_gameover_timeout() -> void:
 
 func _on_delivery_timeout() -> void:
 	_fail_audio_stream.play()
-	Global.delivery_time = _current_delivery_time
-	if Global.delivery_count == Global.delivery_total:
-		_victory_audio_stream.play()
-		_hud.gameover("Congratulation: All deliveries are completed for today")
+	#if Global.delivery_count == Global.delivery_total:
+	#	_victory_audio_stream.play()
+	#	_hud.gameover("Congratulation: All deliveries are completed for today")
 	#Global.delivery_count += 1
 
 
 func _on_delivery_ok() -> void:
 	_delivery_ok_audio_stream.play()
-	Global.points += _current_delivery_time - Global.delivery_time
-	Global.delivery_time = _current_delivery_time
+	Global.points += int(_current_delivery_time - Global.delivery_time)
 	_timer_audio_stream.stop()
 	Global.global_time += 15
 	if Global.delivery_count == Global.delivery_total:
