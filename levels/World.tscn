@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bod7h2ewook7h"]
+[gd_scene load_steps=11 format=3 uid="uid://bod7h2ewook7h"]
 
 [ext_resource type="Script" path="res://levels/World.gd" id="1_kb4rl"]
 [ext_resource type="PackedScene" uid="uid://ox1vxfdy4xrc" path="res://levels/Univers.tscn" id="2_qs2mn"]
@@ -6,7 +6,9 @@
 [ext_resource type="AudioStream" uid="uid://bsf5lujmvvq45" path="res://audio/fail.mp3" id="4_8fmgy"]
 [ext_resource type="AudioStream" uid="uid://b6g8tnq0mqp4y" path="res://audio/sound_track_01.mp3" id="5_0iiyh"]
 [ext_resource type="AudioStream" uid="uid://ccuq5t2ltbki1" path="res://audio/delivery_ok.wav" id="5_nlj5c"]
+[ext_resource type="AudioStream" uid="uid://dqedcsdmhshfs" path="res://audio/critical_failure.wav" id="6_50mum"]
 [ext_resource type="AudioStream" uid="uid://dxd6k8f5xw1nm" path="res://audio/timer.wav" id="6_57yhp"]
+[ext_resource type="AudioStream" uid="uid://coabxvkcuibss" path="res://audio/victory.wav" id="7_oyry7"]
 [ext_resource type="PackedScene" path="res://nodes/ui/DeliveryPointArrow.tscn" id="9_u8m1l"]
 
 [node name="World" type="Node3D"]
@@ -28,10 +30,12 @@ bus = &"SoundEffect"
 
 [node name="CriticalFailureAudioStream" type="AudioStreamPlayer" parent="."]
 process_mode = 3
+stream = ExtResource("6_50mum")
 bus = &"SoundEffect"
 
 [node name="VictoryAudioStream" type="AudioStreamPlayer" parent="."]
 process_mode = 3
+stream = ExtResource("7_oyry7")
 bus = &"SoundEffect"
 
 [node name="TimerAudioStream" type="AudioStreamPlayer" parent="."]
