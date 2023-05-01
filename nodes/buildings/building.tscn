@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://chxlyby6w75er"]
+[gd_scene load_steps=6 format=3 uid="uid://chxlyby6w75er"]
 
 [ext_resource type="Material" uid="uid://yh0iq403po56" path="res://materials/Standard.tres" id="1_6orgo"]
-[ext_resource type="Shader" uid="uid://co23en1a30nhl" path="res://materials/Xray.tres" id="2_ls4vn"]
+[ext_resource type="PackedScene" uid="uid://duj0snl4xhce1" path="res://nodes/torus.tscn" id="2_g1oow"]
 
 [sub_resource type="GDScript" id="GDScript_8mwej"]
 resource_name = "Building"
@@ -38,15 +38,6 @@ func _on_body_entered(body: Node3D) -> void:
 height = 1.0
 radius = 1.1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ga0lv"]
-render_priority = 0
-shader = ExtResource("2_ls4vn")
-shader_parameter/BlinkRate = 2.0
-
-[sub_resource type="TorusMesh" id="TorusMesh_aq42b"]
-inner_radius = 0.75
-rings = 8
-
 [node name="Building" type="StaticBody3D"]
 script = SubResource("GDScript_8mwej")
 
@@ -69,8 +60,5 @@ metadata/_edit_group_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CylinderShape3D_8ag4t")
 
-[node name="Torus" type="MeshInstance3D" parent="DeliveryArea"]
+[node name="Torus" parent="DeliveryArea" instance=ExtResource("2_g1oow")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0)
-material_override = SubResource("ShaderMaterial_ga0lv")
-mesh = SubResource("TorusMesh_aq42b")

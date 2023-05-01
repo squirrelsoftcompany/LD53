@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://duj0snl4xhce1"]
+
+[ext_resource type="Shader" uid="uid://co23en1a30nhl" path="res://materials/Xray.tres" id="1_l3vmg"]
+[ext_resource type="Script" path="res://scripts/torus.gd" id="1_lymfy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ga0lv"]
+render_priority = 0
+shader = ExtResource("1_l3vmg")
+shader_parameter/BlinkRate = 2.0
+
+[sub_resource type="TorusMesh" id="TorusMesh_aq42b"]
+inner_radius = 0.75
+rings = 4
+ring_segments = 3
+
+[node name="Torus" type="Node3D"]
+script = ExtResource("1_lymfy")
+
+[node name="Torus" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_ga0lv")
+mesh = SubResource("TorusMesh_aq42b")

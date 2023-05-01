@@ -1,4 +1,20 @@
-[gd_resource type="VisualShader" load_steps=7 format=3 uid="uid://co23en1a30nhl"]
+[gd_resource type="VisualShader" load_steps=13 format=3 uid="uid://co23en1a30nhl"]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_ngm73"]
+operator = 1
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_757q2"]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeVectorFunc" id="VisualShaderNodeVectorFunc_khhys"]
+function = 4
+
+[sub_resource type="VisualShaderNodeVectorFunc" id="VisualShaderNodeVectorFunc_7t816"]
+function = 32
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_doygv"]
+default_input_values = [0, 0.0, 1, 2.5]
+operator = 2
 
 [sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_jf532"]
 constant = Color(0.139764, 0.472656, 0.129599, 1)
@@ -22,6 +38,9 @@ parameter_name = "BlinkRate"
 default_value_enabled = true
 default_value = 2.0
 
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_trxtc"]
+input_name = "vertex"
+
 [resource]
 code = "shader_type spatial;
 render_mode cull_front, specular_disabled, depth_test_disabled, unshaded, shadows_disabled, ambient_light_disabled;
@@ -30,9 +49,32 @@ uniform float BlinkRate = 2;
 
 
 
+void vertex() {
+// Input:2
+	vec3 n_out2p0 = VERTEX;
+
+
+// Output:0
+	COLOR.rgb = n_out2p0;
+
+
+}
+
 void fragment() {
 // ColorConstant:2
 	vec4 n_out2p0 = vec4(0.139764, 0.472656, 0.129599, 1.000000);
+
+
+// Input:12
+	vec4 n_out12p0 = COLOR;
+
+
+// VectorFunc:13
+	vec3 n_out13p0 = abs(vec3(n_out12p0.xyz));
+
+
+// VectorFunc:14
+	vec3 n_out14p0 = vec3(1.0) - n_out13p0;
 
 
 // Input:3
@@ -47,8 +89,17 @@ void fragment() {
 	float n_out5p0 = n_out3p0 * n_out8p0;
 
 
+// FloatOp:11
+	float n_out11p0 = n_out14p0.x - n_out5p0;
+
+
+// FloatOp:15
+	float n_in15p1 = 2.50000;
+	float n_out15p0 = n_out11p0 * n_in15p1;
+
+
 // VectorFunc:4
-	vec3 n_out4p0 = cos(vec3(n_out5p0));
+	vec3 n_out4p0 = cos(vec3(n_out15p0));
 
 
 // VectorOp:7
@@ -64,24 +115,37 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-375.338, -128.167)
+graph_offset = Vector2(-268.917, -37.25)
 modes/cull = 1
 modes/specular = 2
 flags/depth_test_disabled = true
 flags/unshaded = true
 flags/shadows_disabled = true
 flags/ambient_light_disabled = true
+nodes/vertex/2/node = SubResource("VisualShaderNodeInput_trxtc")
+nodes/vertex/2/position = Vector2(0, 180)
+nodes/vertex/connections = PackedInt32Array(2, 0, 0, 6)
 nodes/fragment/0/position = Vector2(720, 20)
 nodes/fragment/2/node = SubResource("VisualShaderNodeColorConstant_jf532")
 nodes/fragment/2/position = Vector2(360, -60)
 nodes/fragment/3/node = SubResource("VisualShaderNodeInput_j5kc1")
-nodes/fragment/3/position = Vector2(-240, 220)
+nodes/fragment/3/position = Vector2(-540, 240)
 nodes/fragment/4/node = SubResource("VisualShaderNodeVectorFunc_v277h")
 nodes/fragment/4/position = Vector2(220, 220)
 nodes/fragment/5/node = SubResource("VisualShaderNodeFloatOp_vxd4s")
-nodes/fragment/5/position = Vector2(60, 220)
+nodes/fragment/5/position = Vector2(-260, 240)
 nodes/fragment/7/node = SubResource("VisualShaderNodeVectorOp_daedw")
 nodes/fragment/7/position = Vector2(380, 220)
 nodes/fragment/8/node = SubResource("VisualShaderNodeFloatParameter_rrqre")
-nodes/fragment/8/position = Vector2(-240, 320)
-nodes/fragment/connections = PackedInt32Array(3, 0, 5, 0, 5, 0, 4, 0, 4, 0, 7, 0, 7, 0, 0, 1, 2, 0, 0, 5, 8, 0, 5, 1, 2, 0, 0, 0)
+nodes/fragment/8/position = Vector2(-540, 340)
+nodes/fragment/11/node = SubResource("VisualShaderNodeFloatOp_ngm73")
+nodes/fragment/11/position = Vector2(-120, 160)
+nodes/fragment/12/node = SubResource("VisualShaderNodeInput_757q2")
+nodes/fragment/12/position = Vector2(-760, 20)
+nodes/fragment/13/node = SubResource("VisualShaderNodeVectorFunc_khhys")
+nodes/fragment/13/position = Vector2(-440, -20)
+nodes/fragment/14/node = SubResource("VisualShaderNodeVectorFunc_7t816")
+nodes/fragment/14/position = Vector2(-260, 20)
+nodes/fragment/15/node = SubResource("VisualShaderNodeFloatOp_doygv")
+nodes/fragment/15/position = Vector2(53.4, 185.4)
+nodes/fragment/connections = PackedInt32Array(3, 0, 5, 0, 4, 0, 7, 0, 7, 0, 0, 1, 2, 0, 0, 5, 8, 0, 5, 1, 2, 0, 0, 0, 5, 0, 11, 1, 12, 0, 13, 0, 13, 0, 14, 0, 14, 0, 11, 0, 11, 0, 15, 0, 15, 0, 4, 0)
