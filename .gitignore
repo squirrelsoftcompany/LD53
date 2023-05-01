@@ -19,3 +19,5 @@ mono_crash.*.json
 
 # Export files
 /[Ee]xport/
+
+/build/
