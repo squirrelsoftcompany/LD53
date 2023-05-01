@@ -14,6 +14,7 @@ script/source = "extends StaticBody3D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_deliveryArea.connect(\"body_entered\", _on_body_entered)
+	disactivate()
 
 
 func activate():
@@ -42,23 +43,24 @@ radius = 1.1
 script = SubResource("GDScript_8mwej")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 material_override = ExtResource("1_6orgo")
 mesh = SubResource("BoxMesh_du5g4")
 
 [node name="DeliveryArea" type="Area3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
-visible = false
 collision_layer = 0
 collision_mask = 2
 monitoring = false
 metadata/_edit_group_ = true
 
 [node name="DeliveryShape" type="CollisionShape3D" parent="DeliveryArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.5, 0)
 shape = SubResource("CylinderShape3D_8ag4t")
 
 [node name="Torus" parent="DeliveryArea" instance=ExtResource("2_g1oow")]
 unique_name_in_owner = true
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.25, 0)

@@ -106,7 +106,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		%RCS.apply_jump()
 
 	apply_central_force(_move_direction * mass * _move_speed)
-	_loadBody.apply_central_force(_move_direction * _loadBody.mass * _move_speed / 2)
+	_loadBody.apply_central_force(_move_direction * mass * _move_speed / 4)
 
 
 func compute_direction_and_rotate_towards(up : Vector3, delta : float) -> Vector3:
