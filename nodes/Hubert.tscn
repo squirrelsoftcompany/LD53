@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bncvpe8fneh3m"]
+[gd_scene load_steps=10 format=3 uid="uid://bncvpe8fneh3m"]
 
 [ext_resource type="PackedScene" uid="uid://3n4ygfapfmnh" path="res://nodes/character.tscn" id="1_u4p0y"]
 [ext_resource type="ArrayMesh" uid="uid://mecled1csa01" path="res://models/HubertRoboto.obj" id="2_b2ilo"]
@@ -7,6 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://bve3pko3rk1ao" path="res://nodes/rcs.tscn" id="4_55hli"]
 [ext_resource type="Script" path="res://scripts/RCS.gd" id="4_sj4fw"]
 [ext_resource type="PackedScene" path="res://nodes/engine_plume.tscn" id="5_ugdwm"]
+[ext_resource type="Shader" uid="uid://bqxpm3mu8g1lv" path="res://materials/engineParticles.tres" id="6_tsbg6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3gnuf"]
+shader = ExtResource("6_tsbg6")
+shader_parameter/Force = 10.0
+shader_parameter/Color = Color(1, 1, 0, 1)
+shader_parameter/Large = true
 
 [node name="character" instance=ExtResource("1_u4p0y")]
 
@@ -19,39 +26,54 @@ material_override = ExtResource("2_q4e0u")
 mesh = ExtResource("2_b2ilo")
 
 [node name="RCS" type="Node3D" parent="LilGuy" index="4"]
+unique_name_in_owner = true
 script = ExtResource("4_sj4fw")
 
-[node name="RCS" parent="LilGuy/RCS" index="0" instance=ExtResource("4_55hli")]
+[node name="RCS_left" parent="LilGuy/RCS" index="0" instance=ExtResource("4_55hli")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.8, 1.309, 0)
 rotation_edit_mode = 0
 
-[node name="RCS2" parent="LilGuy/RCS" index="1" instance=ExtResource("4_55hli")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.832688, 2.75958, 0.00559863)
-
-[node name="RCS3" parent="LilGuy/RCS" index="2" instance=ExtResource("4_55hli")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.06912, 2.58598, 0.00559863)
-rotation_edit_mode = 0
-visibility_aabb = AABB(-3.73096, -4, -4, 8, 8, 8)
-
-[node name="RCS4" parent="LilGuy/RCS" index="3" instance=ExtResource("4_55hli")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.832688, 2.47775, 0.00559863)
+[node name="RCS_right" parent="LilGuy/RCS" index="1" instance=ExtResource("4_55hli")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.8, 1.309, 0)
 rotation_edit_mode = 0
 
-[node name="RCS5" parent="LilGuy/RCS" index="4" instance=ExtResource("4_55hli")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.833, 2.617, 0.44)
+[node name="RCS_back" parent="LilGuy/RCS" index="2" instance=ExtResource("4_55hli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.433, 1.287, 0.8)
 rotation_edit_mode = 0
 
-[node name="RCS6" parent="LilGuy/RCS" index="5" instance=ExtResource("4_55hli")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.833, 2.76, 0.006)
-
-[node name="RCS7" parent="LilGuy/RCS" index="6" instance=ExtResource("4_55hli")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.069, 2.586, 0.006)
+[node name="RCS_back2" parent="LilGuy/RCS" index="3" instance=ExtResource("4_55hli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.428, 1.309, 0.8)
 rotation_edit_mode = 0
-visibility_aabb = AABB(-3.73096, -4, -4, 8, 8, 8)
 
-[node name="RCS8" parent="LilGuy/RCS" index="7" instance=ExtResource("4_55hli")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.833, 2.478, 0.006)
+[node name="RCS_down" parent="LilGuy/RCS" index="4" instance=ExtResource("4_55hli")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.433, 1.6, 0)
 rotation_edit_mode = 0
-visible = false
+
+[node name="RCS_down2" parent="LilGuy/RCS" index="5" instance=ExtResource("4_55hli")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.428, 1.6, 0)
+rotation_edit_mode = 0
+
+[node name="RCS_up" parent="LilGuy/RCS" index="6" instance=ExtResource("4_55hli")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.433, 0.919572, 0)
+rotation_edit_mode = 0
+
+[node name="RCS_up2" parent="LilGuy/RCS" index="7" instance=ExtResource("4_55hli")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.428, 0.919572, 0)
+rotation_edit_mode = 0
+
+[node name="RCS_jump" parent="LilGuy/RCS" index="8" instance=ExtResource("4_55hli")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.433, 0.919572, 0)
+rotation_edit_mode = 0
+amount = 30
+one_shot = true
+process_material = SubResource("ShaderMaterial_3gnuf")
+
+[node name="RCS_jump2" parent="LilGuy/RCS" index="9" instance=ExtResource("4_55hli")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.428, 0.919572, 0)
+rotation_edit_mode = 0
+amount = 30
+one_shot = true
+process_material = SubResource("ShaderMaterial_3gnuf")
 
 [node name="Shape" parent="Load" index="0"]
 transform = Transform3D(-8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0, 2, 0, 1, 0)

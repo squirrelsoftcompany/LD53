@@ -103,6 +103,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		apply_central_impulse(_up * mass * (_jump_initial_impulse + _local_gravity_scale))
 		_loadBody.apply_central_impulse(_up * _loadBody.mass * (_jump_initial_impulse + _local_gravity_scale))
 		_jumped = false
+		%RCS.apply_jump()
 
 	apply_central_force(_move_direction * mass * _move_speed)
 	_loadBody.apply_central_force(_move_direction * _loadBody.mass * _move_speed / 2)
@@ -118,7 +119,9 @@ func compute_direction_and_rotate_towards(up : Vector3, delta : float) -> Vector
 	var rotation_basis = Basis(left_axis, up, forward_axis).orthonormalized()
 	var raw_input = Vector3(move_left, move_up, move_forward).normalized()
 	var new_direction = rotation_basis * raw_input
-	
+	# show RCS
+	%RCS.apply_raw_input(raw_input if not _is_grounded else Vector3.ZERO)
+
 	if raw_input.length() > 0.2 and abs(up.dot(new_direction)) < 0.98:
 		var new_rotation_basis = Basis(up.cross(new_direction), up, new_direction).orthonormalized()
 		transform.basis.slerp(new_rotation_basis, maxf(delta * _rotation_speed, 1))

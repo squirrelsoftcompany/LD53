@@ -5,9 +5,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p6ss3"]
 shader = ExtResource("1_bt3wk")
-shader_parameter/forceX = 0.0
-shader_parameter/forceY = 0.0
-shader_parameter/forceZ = 0.0
+shader_parameter/Force = 5.0
+shader_parameter/Color = Color(1, 1, 1, 1)
+shader_parameter/Large = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xd0sb"]
 render_priority = 0
@@ -21,7 +21,9 @@ height = 0.2
 [node name="RCS" type="GPUParticles3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.832688, 2.6172, 0.440267)
 rotation_edit_mode = 2
+emitting = false
 amount = 15
 lifetime = 0.3
+local_coords = true
 process_material = SubResource("ShaderMaterial_p6ss3")
 draw_pass_1 = SubResource("SphereMesh_57ede")
