@@ -82,6 +82,7 @@ func _deferred_goto_scene(scene: Resource) -> void:
 func reinit() -> void:
 	_is_gameover = false
 	get_tree().paused = false
+	current_delivery_point = null
 	_select_next_delivery_point()
 
 
@@ -110,12 +111,17 @@ func delivery_success() -> void:
 
 
 func _select_next_delivery_point() -> void:
+	if current_delivery_point:
+		current_delivery_point.disactivate()
+	
 	var planets := get_tree().get_nodes_in_group("Planet")
 	var facilities := []
 	for planet in planets:
 		facilities.append_array( planet.facilitiesArray )
 	if facilities.size() != 0:
-		current_delivery_point = facilities[randi_range(0, facilities.size())]
+		facilities.erase(current_delivery_point)
+		current_delivery_point = facilities[randi_range(0, facilities.size()-1)]
+		current_delivery_point.activate()
 		emit_signal("new_delivery_point", current_delivery_point)
 	else:
 		@warning_ignore("assert_always_false")

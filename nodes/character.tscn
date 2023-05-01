@@ -137,7 +137,7 @@ height = 1.0
 
 [node name="character" type="Node3D"]
 
-[node name="LilGuy" type="RigidBody3D" parent="."]
+[node name="LilGuy" type="RigidBody3D" parent="." groups=["CharacterBody"]]
 unique_name_in_owner = true
 disable_mode = 2
 collision_layer = 2

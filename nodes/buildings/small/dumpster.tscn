@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cg74jku6kn0sk"]
 
-[ext_resource type="PackedScene" uid="uid://citsk2is7g14h" path="res://nodes/buildings/building.tscn" id="1_8jbie"]
+[ext_resource type="PackedScene" uid="uid://chxlyby6w75er" path="res://nodes/buildings/building.tscn" id="1_8jbie"]
 [ext_resource type="ArrayMesh" uid="uid://dtevhnfrpdk8o" path="res://models/Dumpster.obj" id="2_i14uq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ou0da"]

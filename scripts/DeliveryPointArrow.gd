@@ -11,7 +11,6 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Global.connect("new_delivery_point", _on_new_delivery_point)
-	_on_new_delivery_point(Global.current_delivery_point)
 	pass # Replace with function body.
 
 

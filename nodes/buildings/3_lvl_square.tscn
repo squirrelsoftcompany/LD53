@@ -15,3 +15,6 @@ shape = SubResource("BoxShape3D_cear5")
 
 [node name="MeshInstance3D" parent="." index="1"]
 mesh = ExtResource("2_ctph1")
+
+[node name="DeliveryArea" parent="." index="2"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.5, 10)

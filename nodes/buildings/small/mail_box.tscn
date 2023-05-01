@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b0a8midtjm2p4"]
 
-[ext_resource type="PackedScene" uid="uid://citsk2is7g14h" path="res://nodes/buildings/building.tscn" id="1_nefy7"]
+[ext_resource type="PackedScene" uid="uid://chxlyby6w75er" path="res://nodes/buildings/building.tscn" id="1_nefy7"]
 [ext_resource type="ArrayMesh" uid="uid://4fys5eejg5wp" path="res://models/MailBox.obj" id="2_k7yw4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2mlot"]
