@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://ox1vxfdy4xrc"]
+[gd_scene load_steps=6 format=3 uid="uid://ox1vxfdy4xrc"]
 
+[ext_resource type="Script" path="res://levels/Univers.gd" id="1_8s0er"]
 [ext_resource type="Script" path="res://scripts/univers_generator.gd" id="1_53e8m"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="2_ls0t3"]
 [ext_resource type="PackedScene" uid="uid://bdt32i7y653jp" path="res://nodes/EnvironementSkyBox.tscn" id="3_p1oyf"]
-[ext_resource type="PackedScene" uid="uid://bortqraxeb2lg" path="res://nodes/Hubert.tscn" id="4_n6ah2"]
+[ext_resource type="PackedScene" uid="uid://bncvpe8fneh3m" path="res://nodes/Hubert.tscn" id="4_n6ah2"]
 
 [node name="Univers" type="Node3D"]
+script = ExtResource("1_8s0er")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.820112, 0.572203, 0, -0.572203, 0.820112, -0.0529032, 21.3962, 26.0414)
