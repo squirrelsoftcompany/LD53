@@ -8,7 +8,6 @@ var _current_delivery_time := 30.0
 @onready var _critical_failure_audio_stream := $CriticalFailureAudioStream
 @onready var _victory_audio_stream := $VictoryAudioStream
 @onready var _timer_audio_stream := $TimerAudioStream
-@onready var _univers := $Univers
 
 
 func _ready() -> void:
@@ -68,5 +67,5 @@ func _on_new_delivery_point(delivery_point: Node3D) -> void:
 
 
 func compute_current_delivery_time(delivery_point: Node3D) -> float:
-	var caracter:Node3D = _univers.get_character()
-	return sqrt(delivery_point.global_position.distance_to(caracter.global_position)) * 2.5
+	var _character:Node3D = get_tree().get_first_node_in_group("CharacterBody")
+	return sqrt(delivery_point.global_position.distance_to(_character.global_position)) * 2.5
