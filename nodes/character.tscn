@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://3n4ygfapfmnh"]
 
-[ext_resource type="PhysicsMaterial" path="res://materials/bouncy_physics.tres" id="1_c7f2t"]
+[ext_resource type="PhysicsMaterial" uid="uid://cnr64geca6o4o" path="res://materials/bouncy_physics.tres" id="1_c7f2t"]
 [ext_resource type="AudioStream" uid="uid://cnpmany7n3yxy" path="res://audio/move_idle.wav" id="2_pujsb"]
 
 [sub_resource type="GDScript" id="GDScript_7xj0i"]
@@ -12,6 +12,7 @@ var _local_gravity := Vector3.ZERO
 var _local_gravity_scale := 0.0
 var _move_direction := Vector3.ZERO
 var _jumped := false
+var _boosted := false
 var _is_floating := false
 var _is_grounded := false
 var _is_moving := false
@@ -22,6 +23,7 @@ var _is_moving_sound_triggered := false
 @onready var _rotation_speed = ProjectSettings.get_setting(\"specific/controls/rotation_speed\", 0)
 @onready var _move_speed = ProjectSettings.get_setting(\"specific/controls/move_speed\", 0)
 @onready var _jump_initial_impulse = ProjectSettings.get_setting(\"specific/controls/jump_initial_impulse\", 0)
+@onready var _boost_initial_impulse = ProjectSettings.get_setting(\"specific/controls/boost_initial_impulse\", 0)
 @onready var _floating_threshold = ProjectSettings.get_setting(\"specific/controls/floating_threshold\", 0)
 @onready var _jump_audio_stream := $\"../JumpAudioStream\"
 @onready var _move_audio_stream := $\"../MoveAudioStream\"
@@ -42,7 +44,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not _is_floating:
-		if event.is_action_pressed(\"go_up\"):
+		if event.is_action_pressed(\"jump\"):
 			_jumped = true
 			_jump_audio_stream.stop()
 			_jump_audio_stream.stream = _jump_sound
@@ -51,8 +53,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			_is_moving_sound_triggered = false
 			_move_audio_stream.stream = null
 			return
-		if event.is_action_released(\"go_up\"):
+		if event.is_action_released(\"jump\"):
 			_jumped = false
+	else:
+		# boost action
+		if event.is_action_pressed(\"boost\"):
+			_boosted = true
+		if event.is_action_released(\"boost\"):
+			_boosted = false
 	
 	var move = Input.get_action_strength(\"go_back\")
 	move += Input.get_action_strength(\"go_front\")
@@ -100,10 +108,15 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	_move_direction = compute_direction_and_rotate_towards(_up, state.step)
 
 	if _jumped:
-		apply_central_impulse(_up * mass * (_jump_initial_impulse + _local_gravity_scale))
-		_loadBody.apply_central_impulse(_up * _loadBody.mass * (_jump_initial_impulse + _local_gravity_scale))
+		apply_central_impulse(_up * mass * (_jump_initial_impulse + _local_gravity_scale / 2))
+		_loadBody.apply_central_impulse(_up * _loadBody.mass * (_jump_initial_impulse + _local_gravity_scale / 2))
 		_jumped = false
 		%RCS.apply_jump()
+	if _boosted:
+		apply_central_impulse(transform.basis.x.cross(_up) * mass * (_boost_initial_impulse))
+		_loadBody.apply_central_impulse(transform.basis.x.cross(_up) * _loadBody.mass * (_boost_initial_impulse))
+		_boosted = false
+		%RCS.apply_boost()
 
 	apply_central_force(_move_direction * mass * _move_speed)
 	_loadBody.apply_central_force(_move_direction * mass * _move_speed / 4)
@@ -112,7 +125,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 func compute_direction_and_rotate_towards(up : Vector3, delta : float) -> Vector3:
 	var move_forward = Input.get_action_strength(\"go_front\") - Input.get_action_strength(\"go_back\")
 	var move_left = Input.get_action_strength(\"go_left\") - Input.get_action_strength(\"go_right\")
-	var move_up = (Input.get_action_strength(\"go_up\") if _is_floating and not _jumped else 0.0) - Input.get_action_strength(\"go_down\")
+	var move_up = (Input.get_action_strength(\"go_up\") if _is_floating and not _jumped else Input.get_action_strength(\"go_up_when_not_floating\")) - Input.get_action_strength(\"go_down\")
 	var forward_axis = transform.basis.x.cross(up)
 	var left_axis = up.cross(forward_axis)
 
@@ -122,7 +135,7 @@ func compute_direction_and_rotate_towards(up : Vector3, delta : float) -> Vector
 	# show RCS
 	%RCS.apply_raw_input(raw_input if not _is_grounded else Vector3.ZERO)
 
-	if raw_input.length() > 0.2 and abs(up.dot(new_direction)) < 0.98:
+	if raw_input.length() > 0.2 and abs(up.dot(new_direction)) < 0.98 and abs(new_direction.dot(left_axis)) < 0.98:
 		var new_rotation_basis = Basis(up.cross(new_direction), up, new_direction).orthonormalized()
 		transform.basis.slerp(new_rotation_basis, maxf(delta * _rotation_speed, 1))
 	elif forward_axis.dot(transform.basis.z) < 0.90 :
