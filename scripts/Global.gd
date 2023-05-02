@@ -30,8 +30,8 @@ var _current_scene: Node = null
 var _is_gameover := false
 var _main_menu := preload("res://levels/ui/MainMenu.tscn")
 var _world := preload("res://levels/World.tscn")
-var _rng = RandomNumberGenerator.new()
-var rng_seed : int = randi()
+var _rng
+var rng_seed : int
 
 #Delivery zones loading
 var deliveryZone_1 := preload("res://nodes/buildings/2_lvl_square.tscn")
@@ -55,7 +55,10 @@ func play_sound(sound: AudioStream) -> void:
 		_global_stream_player.stream = sound
 		_global_stream_player.play()
 
-
+func _init() -> void:
+	rng_seed = randi()
+	_rng = RandomNumberGenerator.new()
+	
 func _ready() -> void:
 	var root = get_tree().get_root()
 	_current_scene = root.get_child(1)

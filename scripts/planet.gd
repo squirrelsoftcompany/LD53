@@ -71,8 +71,8 @@ func generateFacilities(pCount: int) -> void:
 		add_child(facilityInstance)
 		var validPosition = false
 		var radialVector
-		var maxTryCount = 10 #Stop trying after too much tries. Safer considering the random generation.
-		while (!validPosition) and maxTryCount > 0:
+		var maxTryCount = 1000 #Stop trying after too much tries. Safer considering the random generation.
+		while (!validPosition) and maxTryCount >= 0:
 			validPosition = true
 			radialVector = generatePolarVector() * 0.5
 			for facility in facilitiesArray:
