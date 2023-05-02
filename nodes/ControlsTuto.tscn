@@ -34,8 +34,9 @@ text = "
 
 	W/S		Forward/Backward
 	Q/D		Left/Right
-	SHIFT	Nose down
-	Space	Nose up OR
+	SHIFT	Nose up
+	CTRL	Nose down
+	Space	Boost OR
 				Jump out of gravity
 "
 scroll_active = false
